@@ -1,7 +1,7 @@
 {
-  "name": "racecontrol-driver",
-  "version": "1.2.2",
-  "description": "RaceLeague Driver Panel",
+  "name": "turbogrid-driver",
+  "version": "1.0.0",
+  "description": "Turbo Grid Driver Panel",
   "main": "src/main.js",
   "author": "AleEjx",
   "scripts": {
@@ -12,11 +12,11 @@
   },
   "build": {
     "appId": "com.raceleague.driver",
-    "productName": "RaceLeague Driver",
+    "productName": "Turbo Grid Driver",
     "publish": {
       "provider": "github",
       "owner": "AleEjx",
-      "repo": "racecontrol-app"
+      "repo": "turbogrid-app"
     },
     "win": {
       "target": "nsis",
