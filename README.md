@@ -1,4 +1,4 @@
-# RaceLeague Driver Panel - Desktop App
+# TurboGrid Driver Panel - Desktop App
 
 ## Installation
 
