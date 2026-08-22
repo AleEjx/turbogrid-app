@@ -542,8 +542,8 @@ select:hover:not(:focus) {
   transition: text-shadow 0.2s;
 }
 .tl-logo span {
-  color: var(--red);
-  text-shadow: 0 0 12px rgba(255,45,85,0.5);
+  color: var(--brand);
+  text-shadow: 0 0 12px rgba(255,106,0,0.5);
 }
 
 /* Panel mode badge */
