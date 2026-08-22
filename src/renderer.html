@@ -2066,7 +2066,7 @@
     const MARSHAL_ROLE = "1411021822153064579";
     const DIRECTOR_ROLES = ["1411021815127740417"];
     const DEV_USER_ID = "790254318389166111";
-    const GIST_ID = "5972ed8f48195923cdca1fa6cd7ffdfc"; 
+    const GIST_ID = "5972ed8f48195923cdca1fa6cd7ffdfc";
 
     const INVALID_KEYBIND_VALUES = new Set([
   "Pause", "CapsLock", "ScrollLock", "NumLock", "Meta", "ContextMenu",
@@ -3676,6 +3676,22 @@ function canEngineerForActiveLeague() {
     // ── Teams (admin) ────────────────────────────────────────────────────
     let _teamsCache = [];
 
+    // Public teams fetch — used by the leaderboard/Blue Flag modal for every
+    // user (driver, spectator, marshal), unlike loadTeamsForAdmin() below
+    // which is the admin-gated version for the Team Management CRUD card.
+    async function loadPublicTeams() {
+      if (!apiUrl) return;
+      try {
+        const res = await fetch(`${apiUrl}/teams`);
+        const data = await res.json();
+        if (res.ok) _teamsCache = data.teams || [];
+      } catch { /* keep existing cache on failure */ }
+    }
+
+    function getTeamById(id) {
+      return id ? _teamsCache.find(t => t.id === id) || null : null;
+    }
+
     async function loadTeamsForAdmin() {
       if (!apiUrl || !user?.token) return;
       try {
@@ -4005,20 +4021,27 @@ function canEngineerForActiveLeague() {
       const activePlayers = _lastRaceState?.drivers?.length
         ? _lastRaceState.drivers
         : Object.entries(DRIVER_INFO).sort((a, b) => parseInt(a[1].number) - parseInt(b[1].number))
-          .map(([name, info]) => ({ name, number: info.number, callsign: info.callsign }));
+          .map(([name, info]) => ({ name, number: info.number, callsign: info.callsign, team: info.team }));
 
-      const groups = {};
+      // Group by real team (from teams.json) when a driver has one assigned;
+      // fall back to callsign-prefix grouping for drivers with no team set,
+      // so older/unassigned drivers still group sensibly.
+      const groups = {}; // key -> { label, color, emoji, drivers }
       activePlayers.forEach(d => {
-        const team = getTeamFromCallsign(d.callsign) || "OTHER";
-        if (!groups[team]) groups[team] = [];
-        groups[team].push(d);
+        const team = getTeamById(d.team);
+        const key = team ? team.id : (getTeamFromCallsign(d.callsign) || "OTHER");
+        if (!groups[key]) {
+          groups[key] = team
+            ? { label: team.name, color: team.color || "#444466", emoji: team.emoji || "", drivers: [] }
+            : { label: key, color: TEAM_COLORS[key] || "#444466", emoji: "", drivers: [] };
+        }
+        groups[key].drivers.push(d);
       });
 
-      list.innerHTML = Object.entries(groups).map(([team, drivers]) => {
-        const color = TEAM_COLORS[team] || "#444466";
+      list.innerHTML = Object.values(groups).map(({ label, color, emoji, drivers }) => {
         return `
       <div style="border:1px solid ${color};border-radius:7px;overflow:hidden;margin-bottom:4px;">
-        <div style="padding:3px 8px;background:${color}22;font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${color};">${team}</div>
+        <div style="padding:3px 8px;background:${color}22;font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${color};">${emoji} ${label}</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:${color}22;">
 ${drivers.map(d => `
   <button onclick="triggerBlueFlagForDriver('${d.name}', '${d.number}', '${d.callsign}')"
@@ -4953,6 +4976,7 @@ function enterSpectatorMode() {
   engineerPending = false;
   document.getElementById("mode-badge").style.display = "none";
   updateSwitcher();
+  loadPublicTeams();
   launchSpectatePanel();
 }
 
@@ -4983,6 +5007,7 @@ function enterPrincipalOnlyMode() {
 
 async function afterLogin() {
   await fetchActiveLeague();
+  await loadPublicTeams();
   loadDriverDB();
   await syncDriverDBFromServer();
   if (apiUrl) { _sseStarted = true; _connectSSE(); }
@@ -7331,12 +7356,15 @@ function renderLeaderboard(data) {
 
 const pitting = !!d.inPits && !d.dnf && !d.finished;
     const pitBadge = pitting ? `<div class="f-pit-badge">🔧 Pit</div>` : "";
+    const team = getTeamById(d.team);
+    const teamStripe = team ? `border-left:3px solid ${team.color || "var(--brand)"};` : "";
+    const teamTag = team ? `<span style="font-size:8px;color:${team.color || "var(--muted)"};margin-left:4px;">${team.emoji || ""} ${team.name}</span>` : "";
 
     return `
       <div class="f-pos ${pc}">${pos}</div>
       <div class="f-num ${pitting ? "pitting" : ""}">${d.number}</div>
-      <div class="f-body">
-        <div class="f-name">${d.name}</div>
+      <div class="f-body" style="${teamStripe}">
+        <div class="f-name">${d.name}${teamTag}</div>
         <div class="f-call">${d.callsign}</div>
       </div>
       <div>${lapHtml}${gapHtml}${pitBadge}</div>`;
