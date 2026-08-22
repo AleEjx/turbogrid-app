@@ -244,13 +244,13 @@ mainWindow.on("resize", () => mainWindow.webContents.invalidate());
 }
 
 function createTray() {
-  const iconPath = path.join(__dirname, "../assets/tray.png");
+  const iconPath = path.join(__dirname, "../assets/tray_icon.png");
   const icon = fs.existsSync(iconPath)
     ? nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 })
     : nativeImage.createEmpty();
 
   tray = new Tray(icon);
-  tray.setToolTip("RaceLeague Control");
+  tray.setToolTip("TurboGrid Control");
 
   const menu = Menu.buildFromTemplate([
     { label: "Show", click: () => { mainWindow?.show(); mainWindow?.focus(); } },
