@@ -3441,7 +3441,7 @@ function canEngineerForActiveLeague() {
           DRIVER_INFO = {};
           drivers.forEach(d => {
             DRIVER_IDS[d.discordId] = d.name;
-            DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign };
+            DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign, team: d.team };
           });
           return drivers;
         }
@@ -3470,7 +3470,7 @@ function canEngineerForActiveLeague() {
       DRIVER_INFO = {};
       drivers.forEach(d => {
         DRIVER_IDS[d.discordId] = d.name;
-        DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign };
+        DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign, team: d.team };
       });
       if (apiUrl && user?.token) {
         try {
@@ -7505,10 +7505,16 @@ if (flag === "blue") {
 
 if (flag !== "blue") _lastBlueFlagDriver = null;
 
-const html = `<div class="flag-card ${def.color}"><span class="fc-emoji">${def.emoji}</span><div><div class="fc-title">${def.title}</div><div class="fc-sub">${def.sub}</div></div></div>`;
-document.getElementById("flag-notif-marshal").innerHTML = html;
-document.getElementById("flag-notif-marshal").style.display = "block";
-if (def.sound) playFlagAudio(def.sound);
+// "blue" already got its personalized per-driver card + audio above — skip
+// re-rendering the generic notif card and re-playing the generic sound for
+// it (that was the cause of Blue Flag firing twice: once personalized, once
+// generic). Still fall through to update the status pill below for every flag.
+if (flag !== "blue") {
+  const html = `<div class="flag-card ${def.color}"><span class="fc-emoji">${def.emoji}</span><div><div class="fc-title">${def.title}</div><div class="fc-sub">${def.sub}</div></div></div>`;
+  document.getElementById("flag-notif-marshal").innerHTML = html;
+  document.getElementById("flag-notif-marshal").style.display = "block";
+  if (def.sound) playFlagAudio(def.sound);
+}
 const colors = { green: "var(--green)", yellow: "var(--yellow)", red: "var(--red)", orange: "var(--orange)", blue: "var(--blue)", white: "#fff" };
 document.documentElement.style.setProperty("--flag", colors[def.color] || "#fff");
 ["d-race-pill", "m-race-pill"].forEach(id => {
@@ -7954,7 +7960,7 @@ async function submitDNF(onTrack = false) {
           DRIVER_INFO = {};
           drivers.forEach(d => {
             DRIVER_IDS[d.discordId] = d.name;
-            DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign };
+            DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign, team: d.team };
           });
           statusEl.style.color = "var(--green)";
           statusEl.textContent = `✓ Pushed ${drivers.length} drivers — broadcasting to all clients`;
