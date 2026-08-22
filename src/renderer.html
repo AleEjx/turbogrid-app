@@ -1151,6 +1151,29 @@
         <div id="dev-drivers-status" class="font-9 text-muted min-h-12 mt-2"></div>
       </div>
 
+      <div class="dev-card" id="dev-teams-card">
+        <div class="flex-row-between">
+          <div class="dev-title">Teams</div>
+          <span id="dev-teams-badge" class="badge-pill badge-pill-green">0 teams</span>
+        </div>
+        <div class="flex-row-gap-4 mt-2">
+          <button class="dev-btn btn-outline-green flex-1 no-grow" onclick="openTeamModal()" style="width:auto;padding:5px 12px;font-size:9px;">+ Add Team</button>
+        </div>
+        <div id="dev-teams-list" class="flex-col-gap-3 overflow-card-220 mt-2"></div>
+      </div>
+
+      <div class="dev-card" id="dev-principal-card" style="display:none;">
+        <div class="flex-row-between">
+          <div class="dev-title" id="dev-principal-team-name">Team</div>
+          <span id="dev-principal-badge" class="badge-pill badge-pill-green">0 drivers</span>
+        </div>
+        <div class="text-muted font-9 mt-1">You can add and edit drivers on your team. Removing a driver requires an admin.</div>
+        <div class="flex-row-gap-4 mt-2">
+          <button class="dev-btn btn-outline-green flex-1 no-grow" onclick="openPrincipalDriverModal()" style="width:auto;padding:5px 12px;font-size:9px;">+ Add Driver</button>
+        </div>
+        <div id="dev-principal-list" class="flex-col-gap-3 overflow-card-220 mt-2"></div>
+      </div>
+
       <div class="dev-card">
         <div class="dev-title">Active Sessions</div>
         <div id="dev-sessions" class="text-muted-sm">Loading...</div>
@@ -1869,10 +1892,96 @@
           Roblox Username <span class="text-muted font-9">(for live track map)</span></div>
         <input type="text" id="dm-roblox" placeholder="ExampleRobloxUser" />
       </div>
+      <div>
+        <div class="label-muted">
+          Team</div>
+        <select id="dm-team">
+          <option value="">— No team —</option>
+        </select>
+      </div>
       <div id="dm-error" class="text-error-sm"></div>
       <div class="flex-row-gap-6">
         <button onclick="closeDriverModal()" class="secondary-btn flex-1">Cancel</button>
         <button onclick="saveDriverEntry()" class="save-btn flex-1">Save Driver</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="team-modal" class="modal">
+    <div class="modal-panel modal-panel-compact">
+      <div class="flex-row-between">
+        <div class="font-13 fw-800" id="team-modal-title">Add Team</div>
+        <button onclick="closeTeamModal()" class="modal-close">✕</button>
+      </div>
+      <input type="hidden" id="tm-edit-id" />
+      <div>
+        <div class="label-muted">
+          Team Name</div>
+        <input type="text" id="tm-name" placeholder="Scuderia Ferrari" />
+      </div>
+      <div class="flex-row-gap-8">
+        <div class="flex-1">
+          <div class="label-muted">
+            Emoji</div>
+          <input type="text" id="tm-emoji" placeholder="🐎" />
+        </div>
+        <div class="flex-2">
+          <div class="label-muted">
+            Color</div>
+          <input type="color" id="tm-color" value="#ff6a00" style="width:100%;height:32px;padding:2px;" />
+        </div>
+      </div>
+      <div>
+        <div class="label-muted">
+          Discord Role ID <span class="text-muted font-9">(optional)</span></div>
+        <input type="text" id="tm-role" placeholder="1436763826790858763" />
+      </div>
+      <div>
+        <div class="label-muted">
+          Team Principal Discord ID <span class="text-muted font-9">(optional)</span></div>
+        <input type="text" id="tm-principal" placeholder="884223249939050507" />
+      </div>
+      <div id="tm-error" class="text-error-sm"></div>
+      <div class="flex-row-gap-6">
+        <button onclick="closeTeamModal()" class="secondary-btn flex-1">Cancel</button>
+        <button onclick="saveTeamEntry()" class="save-btn flex-1">Save Team</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="principal-driver-modal" class="modal">
+    <div class="modal-panel modal-panel-compact">
+      <div class="flex-row-between">
+        <div class="font-13 fw-800" id="principal-driver-modal-title">Add Driver</div>
+        <button onclick="closePrincipalDriverModal()" class="modal-close">✕</button>
+      </div>
+      <input type="hidden" id="pdm-edit-id" />
+      <div>
+        <div class="label-muted">
+          Driver Name (callname)</div>
+        <input type="text" id="pdm-name" placeholder="ACHILLES" oninput="this.value=this.value.toUpperCase()" />
+      </div>
+      <div class="flex-row-gap-8">
+        <div class="flex-1">
+          <div class="label-muted">
+            Car #</div>
+          <input type="text" id="pdm-number" placeholder="09" />
+        </div>
+        <div class="flex-2">
+          <div class="label-muted">
+            Callsign</div>
+          <input type="text" id="pdm-callsign" placeholder="MAR-09" />
+        </div>
+      </div>
+      <div>
+        <div class="label-muted">
+          Discord ID</div>
+        <input type="text" id="pdm-discord" placeholder="884223249939050507" />
+      </div>
+      <div id="pdm-error" class="text-error-sm"></div>
+      <div class="flex-row-gap-6">
+        <button onclick="closePrincipalDriverModal()" class="secondary-btn flex-1">Cancel</button>
+        <button onclick="savePrincipalDriverEntry()" class="save-btn flex-1">Save Driver</button>
       </div>
     </div>
   </div>
@@ -1953,12 +2062,11 @@
 
   
   <script>
-    const DRIVER_ROLE = "1464790972679454903";
-    const MARSHAL_ROLE = "1464788931823538430";
-    const DIRECTOR_ROLES = ["1464788930296549572", "1510621069864603718"];
+    const DRIVER_ROLE = "1508040781145837588";
+    const MARSHAL_ROLE = "1411021822153064579";
+    const DIRECTOR_ROLES = ["1411021815127740417"];
     const DEV_USER_ID = "790254318389166111";
-    const JUNIOR_DEV_ROLE = "1516779546886803569";
-    const GIST_ID = "746339b1b2924446563e6349ef89ce8a";
+    const GIST_ID = ""; // TurboGrid — filled in after flagApi.js's first run creates the Gist
 
     const INVALID_KEYBIND_VALUES = new Set([
   "Pause", "CapsLock", "ScrollLock", "NumLock", "Meta", "ContextMenu",
@@ -2353,9 +2461,9 @@ function sanitizeKeybinds(keybinds) {
     let hasDriver = false;
     let hasMarshal = false;
     let hasDev = false;
-    let hasJuniorDev = false; // Junior Developer role — sees dev panel, driver DB section only
-    let _juniorDevOnlyMode = false; // true when the user has ONLY the Junior Dev role (no driver/marshal) — hides Marshal tab
     let hasSpectator = false;
+    let isTeamPrincipal = false; // Team Principal — scoped Dev panel access (their team's drivers only)
+    let principalTeam = null; // { id, name, emoji, color, roleId, principalDiscordId } when isTeamPrincipal
     let toastTimer;
     let _currentFlagAudio = null;
     let _actionLoggingEnabled = false;
@@ -3266,55 +3374,52 @@ async function toggleAttendance(name) {
       renderLeaderboard({ ..._lastRaceState, drivers: filtered });
     }
 
-    // Junior Developer — limited dev panel access (Driver Database only)
-    function computeJuniorDev() {
-      hasJuniorDev = !hasDev && !!(user?.roles?.includes(JUNIOR_DEV_ROLE));
-      return hasJuniorDev;
-    }
-
-    // Shows/hides dev panel sections based on access level. Full devs (hasDev)
-    // see everything; Junior Devs see only the Driver Database card.
+    // Full devs see everything. Team Principals (not also full devs) get a
+    // restricted view: only their own team's driver card, nothing else.
     function applyDevPanelAccess() {
-      const restricted = hasJuniorDev && !hasDev;
-      if (restricted) {
-        // Junior Dev restriction: show only the drivers card, hide everything else.
-        document.querySelectorAll("#screen-dev .dev-card").forEach(card => {
-          card.style.display = (card.id === "dev-drivers-card") ? "" : "none";
-        });
-      } else {
-        // Full dev: reset everything visible, then reapply the user's own
-        // Toolbox hide/show prefs (mirrors the resolution logic in
-        // loadToolboxPrefs/toggleToolboxSection, since a TOOLBOX_SECTIONS id
-        // isn't always the card's own id — e.g. action-log-toggle-btn is a
-        // button inside the merged "Toggles" card, not a card itself).
-        document.querySelectorAll("#screen-dev .dev-card").forEach(card => {
-          card.style.display = "";
-        });
-        TOOLBOX_SECTIONS.forEach(s => {
-          if (_toolboxVisible[s.id] === false) {
-            const el = document.getElementById(s.id);
-            if (el) { const card = el.closest(".dev-card") || el; card.style.display = "none"; }
-          }
-        });
+      if (isTeamPrincipal && !hasDev) {
+        applyPrincipalDevAccess();
+        return;
       }
-      const toolboxBtn = document.getElementById("dev-toolbox-btn");
-      if (toolboxBtn) toolboxBtn.style.display = restricted ? "none" : "";
-      const heading = document.querySelector("#screen-dev .dev-heading");
-      if (heading) heading.textContent = restricted ? "⚙️ Developer Panel — Driver Database" : "⚙️ Developer Panel";
 
-      // Export Code, Import Code, and Reset to Defaults are full-dev-only —
-      // Junior Devs can view/add/edit drivers but not bulk export/import/reset.
+      document.querySelectorAll("#screen-dev .dev-card").forEach(card => {
+        card.style.display = (card.id === "dev-principal-card") ? "none" : "";
+      });
+      TOOLBOX_SECTIONS.forEach(s => {
+        if (_toolboxVisible[s.id] === false) {
+          const el = document.getElementById(s.id);
+          if (el) { const card = el.closest(".dev-card") || el; card.style.display = "none"; }
+        }
+      });
+      const toolboxBtn = document.getElementById("dev-toolbox-btn");
+      if (toolboxBtn) toolboxBtn.style.display = "";
+      const heading = document.querySelector("#screen-dev .dev-heading");
+      if (heading) heading.textContent = "⚙️ Developer Panel";
+
+      // Export Code, Import Code, and Reset to Defaults — full dev only.
       ["dev-export-code-btn", "dev-import-code-btn", "dev-reset-db-btn"].forEach(id => {
         const btn = document.getElementById(id);
-        if (btn) btn.style.display = restricted ? "none" : "";
+        if (btn) btn.style.display = "";
       });
+    }
+
+    // Team Principal restricted view — shows only their team's driver card
+    // (dev-principal-card), add/edit only, team locked to their own.
+    function applyPrincipalDevAccess() {
+      document.querySelectorAll("#screen-dev .dev-card").forEach(card => {
+        card.style.display = (card.id === "dev-principal-card") ? "" : "none";
+      });
+      const toolboxBtn = document.getElementById("dev-toolbox-btn");
+      if (toolboxBtn) toolboxBtn.style.display = "none";
+      const heading = document.querySelector("#screen-dev .dev-heading");
+      if (heading) heading.textContent = `⚙️ ${principalTeam?.name || "Team"} — Driver Database`;
     }
 
     // DD
     let _activeLeague = "main"; // "main" | "academy" — synced with server
 
-const DRIVER_ROLE_MAIN    = "1464790972679454903";
-const DRIVER_ROLE_ACADEMY = "1477760574451617922";
+const DRIVER_ROLE_MAIN    = "1508040781145837588";
+const DRIVER_ROLE_ACADEMY = "1515661732507418765";
 
 function canEngineerForActiveLeague() {
   if (hasDev) return true; // devs aren't league-restricted
@@ -3354,7 +3459,7 @@ function canEngineerForActiveLeague() {
     function logDriverDbChange(action) {
       const who = user?.username || "Unknown";
       const id = user?.id || "unknown";
-      const role = hasDev ? "Dev" : hasJuniorDev ? "Junior Dev" : hasMarshal ? "Marshal" : "Unknown";
+      const role = hasDev ? "Dev" : hasMarshal ? "Marshal" : "Unknown";
       console.log(`[DriverDB] ${action} by ${who} (${id}) [${role}] — league: ${_activeLeague}`);
     }
 
@@ -3472,16 +3577,19 @@ function canEngineerForActiveLeague() {
       const el = document.getElementById("dev-driver-list");
       if (!el) return;
 
-      el.innerHTML = filtered.length ? filtered.map(d => `
+      el.innerHTML = filtered.length ? filtered.map(d => {
+        const t = _teamsCache.find(x => x.id === d.team);
+        return `
     <div class="drivers-row">
       <div class="drivers-meta">#${d.number}</div>
       <div class="drivers-body">
-        <div class="drivers-name">${d.name}</div>
+        <div class="drivers-name">${d.name}${t ? ` <span style="font-size:9px;color:${t.color || "var(--muted)"};">${t.emoji || ""} ${t.name}</span>` : ""}</div>
         <div class="drivers-sub">${d.callsign} · <span class="monospace-text">${d.discordId}</span></div>
       </div>
       <button onclick="openDriverEdit('${d.name}')" class="secondary-btn btn-compact">✏️</button>
       <button onclick="deleteDriverEntry('${d.name}')" class="btn-danger btn-compact">✕</button>
-    </div>`).join("")
+    </div>`;
+      }).join("")
         : `<div class="muted-note-center">No drivers found.</div>`;
 
       const badge = document.getElementById("dev-drivers-badge");
@@ -3495,6 +3603,7 @@ function canEngineerForActiveLeague() {
       document.getElementById("dm-callsign").value = "";
       document.getElementById("dm-discord").value = "";
       document.getElementById("dm-roblox").value = "";
+      if (document.getElementById("dm-team")) document.getElementById("dm-team").value = "";
       document.getElementById("dm-error").textContent = "";
       document.getElementById("driver-modal-title").textContent = "Add Driver";
       document.getElementById("driver-modal").style.display = "flex";
@@ -3511,6 +3620,7 @@ function canEngineerForActiveLeague() {
       document.getElementById("dm-callsign").value = d.callsign;
       document.getElementById("dm-discord").value = d.discordId;
       document.getElementById("dm-roblox").value = d.robloxUsername || "";
+      if (document.getElementById("dm-team")) document.getElementById("dm-team").value = d.team || "";
       document.getElementById("dm-error").textContent = "";
       document.getElementById("driver-modal-title").textContent = "Edit Driver";
       document.getElementById("driver-modal").style.display = "flex";
@@ -3527,6 +3637,7 @@ function canEngineerForActiveLeague() {
       const callsign = document.getElementById("dm-callsign").value.trim().toUpperCase();
       const discord = document.getElementById("dm-discord").value.trim();
       const robloxUsername = document.getElementById("dm-roblox").value.trim();
+      const team = document.getElementById("dm-team")?.value || "";
       const errEl = document.getElementById("dm-error");
 
       if (!name) { errEl.textContent = "Name is required."; return; }
@@ -3543,9 +3654,9 @@ function canEngineerForActiveLeague() {
 
       if (editId) {
         const idx = drivers.findIndex(d => d.name === editId);
-        if (idx >= 0) drivers[idx] = { name, number, callsign, discordId: discord, robloxUsername };
+        if (idx >= 0) drivers[idx] = { name, number, callsign, discordId: discord, robloxUsername, team };
       } else {
-        drivers.push({ name, number, callsign, discordId: discord, robloxUsername });
+        drivers.push({ name, number, callsign, discordId: discord, robloxUsername, team });
       }
 
       saveDriverDB(drivers);
@@ -3560,6 +3671,221 @@ function canEngineerForActiveLeague() {
       saveDriverDB(drivers);
       renderDriverDB();
       showToast(`✓ Removed ${name}`, "ok");
+    }
+
+    // ── Teams (admin) ────────────────────────────────────────────────────
+    let _teamsCache = [];
+
+    async function loadTeamsForAdmin() {
+      if (!apiUrl || !user?.token) return;
+      try {
+        const res = await fetch(`${apiUrl}/admin/teams`, { headers: { "x-discord-id": user.id, "x-discord-token": user.token } });
+        const data = await res.json();
+        if (res.ok) _teamsCache = data.teams || [];
+      } catch { /* leave cache as-is on failure */ }
+      renderTeams();
+      populateDriverTeamSelect();
+    }
+
+    function renderTeams() {
+      const el = document.getElementById("dev-teams-list");
+      if (!el) return;
+      el.innerHTML = _teamsCache.length ? _teamsCache.map(t => `
+    <div class="drivers-row">
+      <div class="drivers-meta" style="font-size:16px;">${t.emoji || "🏎️"}</div>
+      <div class="drivers-body">
+        <div class="drivers-name" style="color:${t.color || "inherit"};">${t.name}</div>
+        <div class="drivers-sub">${t.principalDiscordId ? `Principal: <span class="monospace-text">${t.principalDiscordId}</span>` : "No principal set"}${t.roleId ? ` · <span class="monospace-text">${t.roleId}</span>` : ""}</div>
+      </div>
+      <button onclick="openTeamEdit('${t.id}')" class="secondary-btn btn-compact">✏️</button>
+      <button onclick="deleteTeamEntry('${t.id}')" class="btn-danger btn-compact">✕</button>
+    </div>`).join("")
+        : `<div class="muted-note-center">No teams yet.</div>`;
+      const badge = document.getElementById("dev-teams-badge");
+      if (badge) badge.textContent = `${_teamsCache.length} team${_teamsCache.length !== 1 ? "s" : ""}`;
+    }
+
+    function openTeamModal() {
+      document.getElementById("tm-edit-id").value = "";
+      document.getElementById("tm-name").value = "";
+      document.getElementById("tm-emoji").value = "";
+      document.getElementById("tm-color").value = "#ff6a00";
+      document.getElementById("tm-role").value = "";
+      document.getElementById("tm-principal").value = "";
+      document.getElementById("tm-error").textContent = "";
+      document.getElementById("team-modal-title").textContent = "Add Team";
+      document.getElementById("team-modal").style.display = "flex";
+      setTimeout(() => document.getElementById("tm-name").focus(), 50);
+    }
+
+    function openTeamEdit(id) {
+      const t = _teamsCache.find(x => x.id === id);
+      if (!t) return;
+      document.getElementById("tm-edit-id").value = t.id;
+      document.getElementById("tm-name").value = t.name;
+      document.getElementById("tm-emoji").value = t.emoji || "";
+      document.getElementById("tm-color").value = t.color || "#ff6a00";
+      document.getElementById("tm-role").value = t.roleId || "";
+      document.getElementById("tm-principal").value = t.principalDiscordId || "";
+      document.getElementById("tm-error").textContent = "";
+      document.getElementById("team-modal-title").textContent = "Edit Team";
+      document.getElementById("team-modal").style.display = "flex";
+    }
+
+    function closeTeamModal() {
+      document.getElementById("team-modal").style.display = "none";
+    }
+
+    async function saveTeamEntry() {
+      const editId = document.getElementById("tm-edit-id").value;
+      const name = document.getElementById("tm-name").value.trim();
+      const emoji = document.getElementById("tm-emoji").value.trim();
+      const color = document.getElementById("tm-color").value.trim();
+      const roleId = document.getElementById("tm-role").value.trim();
+      const principalDiscordId = document.getElementById("tm-principal").value.trim();
+      const errEl = document.getElementById("tm-error");
+
+      if (!name) { errEl.textContent = "Team name is required."; return; }
+      if (principalDiscordId && !/^\d{17,19}$/.test(principalDiscordId)) { errEl.textContent = "Principal Discord ID should be 17–19 digits."; return; }
+
+      const headers = { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token };
+      const body = { name, emoji, color, roleId, principalDiscordId };
+
+      try {
+        const res = editId
+          ? await fetch(`${apiUrl}/admin/teams/${editId}`, { method: "PUT", headers, body: JSON.stringify(body) })
+          : await fetch(`${apiUrl}/admin/teams`, { method: "POST", headers, body: JSON.stringify(body) });
+        const data = await res.json();
+        if (!res.ok) { errEl.textContent = data.error || "Failed to save team."; return; }
+        closeTeamModal();
+        await loadTeamsForAdmin();
+        showToast(`✓ Team ${editId ? "updated" : "added"}: ${name}`, "ok");
+      } catch { errEl.textContent = "Could not reach the server."; }
+    }
+
+    async function deleteTeamEntry(id) {
+      const t = _teamsCache.find(x => x.id === id);
+      if (!t) return;
+      if (!confirm(`Delete team "${t.name}"? This does not delete its drivers.`)) return;
+      try {
+        const res = await fetch(`${apiUrl}/admin/teams/${id}`, { method: "DELETE", headers: { "x-discord-id": user.id, "x-discord-token": user.token } });
+        const data = await res.json();
+        if (!res.ok) { showToast(`✗ ${data.error}`, "err"); return; }
+        await loadTeamsForAdmin();
+        showToast(`✓ Deleted ${t.name}`, "ok");
+      } catch { showToast("✗ Could not reach the server", "err"); }
+    }
+
+    function populateDriverTeamSelect() {
+      const sel = document.getElementById("dm-team");
+      if (!sel) return;
+      const current = sel.value;
+      sel.innerHTML = `<option value="">— No team —</option>` + _teamsCache.map(t => `<option value="${t.id}">${t.emoji || ""} ${t.name}</option>`).join("");
+      sel.value = current;
+    }
+
+    // ── Team Principal — scoped restricted view ─────────────────────────
+    let _principalDrivers = [];
+
+    async function loadPrincipalTeamDrivers() {
+      const el = document.getElementById("dev-principal-list");
+      const headerEl = document.getElementById("dev-principal-team-name");
+      if (headerEl) headerEl.textContent = `${principalTeam?.emoji || ""} ${principalTeam?.name || "Team"}`.trim();
+      if (!apiUrl || !user?.id) return;
+      try {
+        const res = await fetch(`${apiUrl}/driver-db/my-team`, { headers: { "x-discord-id": user.id } });
+        const data = await res.json();
+        if (res.ok) _principalDrivers = data.drivers || [];
+      } catch { /* keep previous list on failure */ }
+      renderPrincipalDrivers();
+    }
+
+    function renderPrincipalDrivers() {
+      const el = document.getElementById("dev-principal-list");
+      if (!el) return;
+      el.innerHTML = _principalDrivers.length ? _principalDrivers.map(d => `
+    <div class="drivers-row">
+      <div class="drivers-meta">#${d.number}</div>
+      <div class="drivers-body">
+        <div class="drivers-name">${d.name}</div>
+        <div class="drivers-sub">${d.callsign} · <span class="monospace-text">${d.discordId}</span></div>
+      </div>
+      <button onclick="openPrincipalDriverEdit('${d.name}')" class="secondary-btn btn-compact">✏️</button>
+    </div>`).join("")
+        : `<div class="muted-note-center">No drivers on this team yet.</div>`;
+      const badge = document.getElementById("dev-principal-badge");
+      if (badge) badge.textContent = `${_principalDrivers.length} driver${_principalDrivers.length !== 1 ? "s" : ""}`;
+    }
+
+    function openPrincipalDriverModal() {
+      document.getElementById("pdm-edit-id").value = "";
+      document.getElementById("pdm-name").value = "";
+      document.getElementById("pdm-number").value = "";
+      document.getElementById("pdm-callsign").value = "";
+      document.getElementById("pdm-discord").value = "";
+      document.getElementById("pdm-error").textContent = "";
+      document.getElementById("principal-driver-modal-title").textContent = "Add Driver";
+      document.getElementById("principal-driver-modal").style.display = "flex";
+      setTimeout(() => document.getElementById("pdm-name").focus(), 50);
+    }
+
+    function openPrincipalDriverEdit(name) {
+      const d = _principalDrivers.find(x => x.name === name);
+      if (!d) return;
+      document.getElementById("pdm-edit-id").value = name;
+      document.getElementById("pdm-name").value = d.name;
+      document.getElementById("pdm-number").value = d.number;
+      document.getElementById("pdm-callsign").value = d.callsign;
+      document.getElementById("pdm-discord").value = d.discordId;
+      document.getElementById("pdm-error").textContent = "";
+      document.getElementById("principal-driver-modal-title").textContent = "Edit Driver";
+      document.getElementById("principal-driver-modal").style.display = "flex";
+    }
+
+    function closePrincipalDriverModal() {
+      document.getElementById("principal-driver-modal").style.display = "none";
+    }
+
+    // Note: this pushes to the server immediately on save, unlike the full
+    // admin Driver Database's local-cache-then-manual-push flow — simpler
+    // and safer for a scoped, lower-trust editor like a Team Principal.
+    async function savePrincipalDriverEntry() {
+      const editId = document.getElementById("pdm-edit-id").value;
+      const name = document.getElementById("pdm-name").value.trim().toUpperCase();
+      const number = document.getElementById("pdm-number").value.trim();
+      const callsign = document.getElementById("pdm-callsign").value.trim().toUpperCase();
+      const discord = document.getElementById("pdm-discord").value.trim();
+      const errEl = document.getElementById("pdm-error");
+
+      if (!name) { errEl.textContent = "Name is required."; return; }
+      if (!number) { errEl.textContent = "Car number is required."; return; }
+      if (!callsign) { errEl.textContent = "Callsign is required."; return; }
+      if (!discord) { errEl.textContent = "Discord ID is required."; return; }
+      if (!/^\d{17,19}$/.test(discord)) { errEl.textContent = "Discord ID should be 17–19 digits."; return; }
+
+      const dupName = _principalDrivers.find(d => d.name === name && d.name !== editId);
+      if (dupName) { errEl.textContent = "A driver with that name already exists on your team."; return; }
+
+      const updated = [..._principalDrivers];
+      if (editId) {
+        const idx = updated.findIndex(d => d.name === editId);
+        if (idx >= 0) updated[idx] = { ...updated[idx], name, number, callsign, discordId: discord };
+      } else {
+        updated.push({ name, number, callsign, discordId: discord });
+      }
+
+      try {
+        const res = await fetch(`${apiUrl}/driver-db/my-team`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-discord-id": user.id },
+          body: JSON.stringify({ drivers: updated }),
+        });
+        const data = await res.json();
+        if (!res.ok) { errEl.textContent = data.error || "Failed to save."; return; }
+        closePrincipalDriverModal();
+        await loadPrincipalTeamDrivers();
+        showToast(`✓ Driver ${editId ? "updated" : "added"}: ${name}`, "ok");
+      } catch { errEl.textContent = "Could not reach the server."; }
     }
 
     function devExportDriverCode() {
@@ -4109,12 +4435,9 @@ loadPracticeLaps();
 const saved = sessionStorage.getItem("rc_user") || localStorage.getItem("rc_user");
 if (saved && apiUrl) {
   user = JSON.parse(saved);
-  const wasJuniorDevOnly = !!user.juniorDevOnly;
   delete user.isAdmin;
   if (user.spectatorOnly) {
     enterSpectatorMode();
-  } else if (wasJuniorDevOnly) {
-    enterJuniorDevMode();
   } else {
     if (!user.driverToken) user.driverToken = user.id;
     await afterLogin();
@@ -4461,23 +4784,6 @@ function _renderFuelStats() {
         } catch (fetchErr) { errEl.style.color = "var(--red)"; errEl.textContent = "❌ Can't reach API. Is the URL still valid?"; showChangeUrlPrompt(); return; }
 
         if (dRes.ok) {
-  if (dData.juniorDevOnly) {
-    user = dData.user;
-    user.discordId = user.id;
-    user.roles = dData.roles || [];
-    user.token = dData.user.token || null;
-    const safeUser = {
-      id: user.id, discordId: user.id, username: user.username, avatar: user.avatar,
-      token: user.token, marshalToken: null, driverToken: null, roles: user.roles, juniorDevOnly: true,
-    };
-    sessionStorage.setItem("rc_user", JSON.stringify(safeUser));
-    localStorage.setItem("rc_user", JSON.stringify(safeUser));
-    user = { ...user, ...safeUser };
-    errEl.textContent = "";
-    computeJuniorDev();
-    enterJuniorDevMode();
-    return;
-  }
   if (dData.spectatorOnly) {
     user = dData.user;
     user.discordId = user.id;
@@ -4489,6 +4795,7 @@ function _renderFuelStats() {
     localStorage.setItem("rc_user", JSON.stringify(safeUser));
     user = { ...user, ...safeUser };
     errEl.textContent = "";
+    await checkPrincipalAccess(); // a spectator may also be a Team Principal
     enterSpectatorMode();
     return;
   }
@@ -4497,7 +4804,6 @@ function _renderFuelStats() {
   user.token = dData.user.token || null;
   user.roles = dData.roles || [];
   user.roles = dData.roles || [];
-  computeJuniorDev();
         } else if (dRes.status === 403 && !dData.disabled) {
           errEl.style.color = "var(--muted)"; errEl.textContent = "Trying marshal login...";
           let mRes, mData;
@@ -4518,12 +4824,28 @@ function _renderFuelStats() {
             errEl.textContent = "";
             hasDriver = !!mData.hasDriverRole || user.id === DEV_USER_ID;
             hasDev = user.id === DEV_USER_ID;
-            computeJuniorDev();
             updateSwitcher();
             showPasswordScreen();
             return;
           } else {
             if (dData.denied || !mRes.ok) {
+              // Before flatly denying, check Team Principal access — a
+              // principal may have no Driver/Marshal Discord role at all.
+              user = {
+                id: dData.userId, username: dData.username, avatar: dData.avatar,
+                token: null, marshalToken: null,
+              };
+              user.discordId = user.id;
+              await checkPrincipalAccess();
+              if (isTeamPrincipal) {
+                const safeUser = { id: user.id, discordId: user.id, username: user.username, avatar: user.avatar, token: null, marshalToken: null };
+                sessionStorage.setItem("rc_user", JSON.stringify(safeUser));
+                localStorage.setItem("rc_user", JSON.stringify(safeUser));
+                user = { ...user, ...safeUser };
+                errEl.textContent = "";
+                enterPrincipalOnlyMode();
+                return;
+              }
               errEl.style.color = "var(--red)";
               errEl.textContent = "❌ You don't have a valid role to access this app.";
               return;
@@ -4543,7 +4865,6 @@ function _renderFuelStats() {
             errEl.textContent = "";
             hasDriver = false;
             hasDev = user.id === DEV_USER_ID;
-            computeJuniorDev();
             showEngineerScreen();
             return;
           }
@@ -4628,19 +4949,32 @@ function _renderFuelStats() {
     }
 
 function enterSpectatorMode() {
-  hasDriver = false; hasMarshal = false; hasDev = false; hasJuniorDev = false; hasSpectator = true;
-  _juniorDevOnlyMode = false;
+  hasDriver = false; hasMarshal = false; hasDev = false; hasSpectator = true;
   engineerPending = false;
   document.getElementById("mode-badge").style.display = "none";
   updateSwitcher();
   launchSpectatePanel();
 }
 
-// Junior Developer with no Driver/Marshal role — skips the password screen entirely.
-// Lands directly on the Dev panel (Driver Database only) with Spectate also available.
-function enterJuniorDevMode() {
-  hasDriver = false; hasMarshal = false; hasDev = false; hasJuniorDev = true; hasSpectator = true;
-  _juniorDevOnlyMode = true;
+// Checks whether the current user is a Team Principal (per teams.json on the
+// server) regardless of their Driver/Marshal Discord roles — a principal may
+// have no other role at all. Safe to call multiple times; just refreshes state.
+async function checkPrincipalAccess() {
+  isTeamPrincipal = false;
+  principalTeam = null;
+  if (!apiUrl || !user?.id) return;
+  try {
+    const res = await fetch(`${apiUrl}/principal/access`, { headers: { "x-discord-id": user.id } });
+    const data = await res.json();
+    if (data.isPrincipal) { isTeamPrincipal = true; principalTeam = data.team; }
+  } catch { /* leave as not-a-principal on failure */ }
+}
+
+// Entry point for users who are a Team Principal but have no Driver/Marshal
+// role at all — lands directly on a restricted Dev panel (their team's
+// drivers only), same idea as the old Junior Dev bypass.
+function enterPrincipalOnlyMode() {
+  hasDriver = false; hasMarshal = false; hasDev = false; hasSpectator = false;
   engineerPending = false;
   document.getElementById("mode-badge").style.display = "none";
   updateSwitcher();
@@ -4648,13 +4982,12 @@ function enterJuniorDevMode() {
 }
 
 async function afterLogin() {
-  _juniorDevOnlyMode = false;
   await fetchActiveLeague();
   loadDriverDB();
   await syncDriverDBFromServer();
   if (apiUrl) { _sseStarted = true; _connectSSE(); }
   hasDev = user.id === DEV_USER_ID;
-  computeJuniorDev();
+  await checkPrincipalAccess();
   checkCommitteeAccess();
   if (hasDev) {
     document.getElementById("api-url-display").style.display = "block";
@@ -4769,7 +5102,6 @@ function chooseRoleEngineer() {
       engineerPending = true;
       isEngineer = false;
       hasDev = user?.id === DEV_USER_ID;
-      computeJuniorDev();
       const screen = document.getElementById("screen-login");
       screen.innerHTML = `
     <div class="login-logo">Race<span>Control</span></div>
@@ -5012,7 +5344,7 @@ function practiceReset() {
     
     function reLogin() {
       sessionStorage.removeItem("rc_user"); localStorage.removeItem("rc_user");
-      user = null; hasDriver = false; hasMarshal = false; hasDev = false; hasJuniorDev = false; hasSpectator = false; isEngineer = false; engineerPending = false;
+      user = null; hasDriver = false; hasMarshal = false; hasDev = false; hasSpectator = false; isEngineer = false; engineerPending = false;
       document.getElementById("panel-switcher").style.display = "none";
       document.getElementById("mode-badge").style.display = "none";
       location.reload();
@@ -5092,7 +5424,6 @@ function practiceReset() {
         updateBetaVisibility();
         hasMarshal = true;
         hasDev = user.id === DEV_USER_ID;
-        computeJuniorDev();
         engineerPending = false;
         const safeUser = { id: user.id, discordId: user.id, username: user.username, avatar: user.avatar, token: user.token, marshalToken: user.marshalToken, isAdmin: user.isAdmin, roles: user.roles };
         sessionStorage.setItem("rc_user", JSON.stringify(safeUser));
@@ -5244,9 +5575,9 @@ function updateSwitcher() {
     return;
   }
 
-  const show = hasDriver || hasMarshal || hasDev || hasJuniorDev || hasSpectator || (_committeeAccess && _committeeModeEnabled);
+  const show = hasDriver || hasMarshal || hasDev || isTeamPrincipal || hasSpectator || (_committeeAccess && _committeeModeEnabled);
   document.getElementById("panel-switcher").style.display = show ? "flex" : "none";
-  const spectatorOnly = hasSpectator && !hasDriver && !hasMarshal && !hasDev && !hasJuniorDev;
+  const spectatorOnly = hasSpectator && !hasDriver && !hasMarshal && !hasDev;
   const driverTabAllowed = !spectatorOnly && hasDriver && (config.driver || engineerPending || hasMarshal);
   const swDriverBtn = document.getElementById("sw-driver");
   swDriverBtn.style.display = (driverTabAllowed && _userTabPrefs.driver !== false) ? "" : "none";
@@ -5254,12 +5585,12 @@ function updateSwitcher() {
   swDriverBtn.style.opacity = driverNeedsChoice ? "0.4" : "";
   swDriverBtn.style.cursor = driverNeedsChoice ? "not-allowed" : "";
   swDriverBtn.title = driverNeedsChoice ? "Choose Racer or Engineer first" : "";
-  document.getElementById("sw-marshal").style.display = (!spectatorOnly && !_juniorDevOnlyMode && _userTabPrefs.marshal !== false) ? "" : "none";
+  document.getElementById("sw-marshal").style.display = (!spectatorOnly && _userTabPrefs.marshal !== false) ? "" : "none";
   document.getElementById("sw-spectate").style.display = _userTabPrefs.spectate !== false ? "" : "none";
-  document.getElementById("sw-dev").style.display = (!spectatorOnly && (hasDev || hasJuniorDev) && _userTabPrefs.dev !== false) ? "" : "none";
+  document.getElementById("sw-dev").style.display = ((!spectatorOnly || isTeamPrincipal) && (hasDev || isTeamPrincipal) && _userTabPrefs.dev !== false) ? "" : "none";
   document.getElementById("sw-committee").style.display = (_committeeAccess && _committeeModeEnabled) ? "" : "none";
   const utabDevRow = document.getElementById("utab-dev-row");
-  if (utabDevRow) utabDevRow.style.display = (hasDev || hasJuniorDev) ? "" : "none";
+  if (utabDevRow) utabDevRow.style.display = (hasDev || isTeamPrincipal) ? "" : "none";
   document.querySelectorAll(".switch-btn").forEach(b => b.classList.remove("active"));
   const aId = currentPanel === "driver" ? "sw-driver"
     : currentPanel === "marshal" ? "sw-marshal"
@@ -6119,7 +6450,7 @@ function updatePracticeModeToggleBtn() {
 }
 
 // --- Committee Mode ---
-// Gated behind the Race Committee Discord role (1464788930296549572).
+// Gated behind the Race Committee Discord role (1411021815127740417).
 // The desktop app has no direct way to read a user's Discord roles (login
 // only requests the "identify" OAuth scope), so access is verified by the
 // backend, which does hold a bot token. See note below for the expected
@@ -6630,6 +6961,7 @@ function launchMarshalPanel(startPoll = true) {
         { id: "dev-flag-text", label: "Custom Flag (dev)" },
         { id: "dev-engineers", label: "Engineering Assignments" },
         { id: "dev-drivers-card", label: "Driver Database" },
+        { id: "dev-teams-card", label: "Teams" },
         { id: "dev-toggles", label: "Toggles" },
       ];
       let _toolboxVisible = {};
@@ -7658,16 +7990,16 @@ async function submitDNF(onTrack = false) {
 
       async function loadDevInfo() {
         if (!apiUrl) return;
-        if (!user?.token && !user?.marshalToken) { showToast("❌ Marshal login required for Dev panel", "err"); return; }
-        if (!user?.token) { const ok = await devAutoAuth(); if (!ok) { showToast("❌ Dev auth failed", "err"); return; } }
 
-        // Junior Devs only get the Driver Database — skip the admin-only endpoints
-        // (they'd 403 anyway) and just refresh the driver list.
-        if (hasJuniorDev && !hasDev) {
-          try { await fetchActiveLeague(); } catch {}
-          renderDriverDB();
+        // Team Principal (not also a full dev) — skip the admin-only info
+        // fetch entirely (it would 403 anyway) and load just their team.
+        if (isTeamPrincipal && !hasDev) {
+          await loadPrincipalTeamDrivers();
           return;
         }
+
+        if (!user?.token && !user?.marshalToken) { showToast("❌ Marshal login required for Dev panel", "err"); return; }
+        if (!user?.token) { const ok = await devAutoAuth(); if (!ok) { showToast("❌ Dev auth failed", "err"); return; } }
 
         try {
           await loadActionLoggingState();
@@ -7726,6 +8058,7 @@ async function submitDNF(onTrack = false) {
           }).join("") || '<div class="text-muted">No actions yet.</div>';
 
           renderMockLb();
+          await loadTeamsForAdmin();
           renderDriverDB();
 
           const engEl = document.getElementById("dev-engineers");
