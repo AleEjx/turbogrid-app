@@ -7,12 +7,12 @@
   "scripts": {
     "start": "electron .",
     "rebuild-native": "electron-builder install-app-deps",
-    "build": "npm run rebuild-native && electron-builder --win --publish never",
-    "dist": "npm run rebuild-native && electron-builder --win --publish always"
+    "build": "npm run rebuild-native && electron-builder --win --mac --publish never",
+    "dist": "npm run rebuild-native && electron-builder --win --mac --publish always"
   },
   "build": {
-    "appId": "com.raceleague.driver",
-    "productName": "Turbo Grid Driver",
+    "appId": "com.turbogrid.driver",
+    "productName": "TurboGrid Driver",
     "publish": {
       "provider": "github",
       "owner": "AleEjx",
@@ -21,6 +21,10 @@
     "win": {
       "target": "nsis",
       "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
     },
     "nsis": {
       "oneClick": true,
