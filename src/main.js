@@ -737,7 +737,7 @@ async function enterPits(slot) {
 
 ipcMain.handle("open-oauth", (_, _url) => {
   return new Promise((resolve) => {
-    const CLIENT_ID  = "1467595519718195473";
+    const CLIENT_ID  = "1540060254791016588";
     const REDIRECT   = encodeURIComponent(`http://localhost:${OAUTH_PORT}`);
     const discordUrl = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT}&response_type=code&scope=identify`;
 
