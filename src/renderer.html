@@ -666,11 +666,31 @@
       <div>
         <div class="sec-label">Global Flags</div>
         <div class="flag-grid">
-          <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Green</span></button>
+          <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
           <button class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-          <button class="flag-btn yellow" onclick="openSectorModal()"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+          <button class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
           <button class="flag-btn yellow" onclick="triggerFlag('fcy')"><span class="fi">🟡</span><span class="fn">FCY</span></button>
+          <button class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+          <button class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
+          <button class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
           <button onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="sec-label">Private / Driver Flags</div>
+        <div class="flag-grid">
+          <button onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+          <button onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="sec-label">Race Control Panel</div>
+        <div class="flag-grid">
+          <button class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
+          <button class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
+          <button class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
         </div>
       </div>
       <div class="divider"></div>
@@ -766,11 +786,31 @@
     <div>
       <div class="sec-label">Global Flags</div>
       <div class="flag-grid">
-        <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Green</span></button>
+        <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
         <button class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-        <button class="flag-btn yellow" onclick="openSectorModal()"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+        <button class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
         <button class="flag-btn yellow" onclick="triggerFlag('fcy')"><span class="fi">🟡</span><span class="fn">FCY</span></button>
+        <button class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+        <button class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
+        <button class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
         <button onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div class="sec-label">Private / Driver Flags</div>
+      <div class="flag-grid">
+        <button onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+        <button onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div>
+      <div class="sec-label">Race Control Panel</div>
+      <div class="flag-grid">
+        <button class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
+        <button class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
+        <button class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
       </div>
     </div>
     <div class="divider"></div>
@@ -1810,10 +1850,10 @@
     <div class="modal-panel modal-panel-compact modal-panel-scroll">
       <div class="flex-row-between">
         <div class="flex-row-gap-8">
-          <span class="font-18">🔵</span>
+          <span class="font-18" id="blueflag-modal-emoji">🔵</span>
           <div>
-            <div class="font-13 fw-800 text-blue">BLUE FLAG</div>
-            <div class="small-note">Select a driver to blue flag</div>
+            <div class="font-13 fw-800 text-blue" id="blueflag-modal-title">BLUE FLAG</div>
+            <div class="small-note" id="blueflag-modal-sub">Select a driver to blue flag</div>
           </div>
         </div>
         <button onclick="closeBlueFlagModal()" class="modal-close">✕</button>
@@ -1827,29 +1867,29 @@
     <div class="modal-panel modal-panel-compact">
       <div class="flex-row-between">
         <div class="flex-row-gap-8">
-          <span class="font-18">🟡</span>
+          <span class="font-18" id="sector-modal-emoji">🟡</span>
           <div>
-            <div class="font-13 fw-800 text-yellow">YELLOW FLAG</div>
+            <div class="font-13 fw-800 text-yellow" id="sector-modal-title">YELLOW FLAG</div>
             <div class="small-note">Select a sector</div>
           </div>
         </div>
         <button onclick="closeSectorModal()" class="modal-close">✕</button>
       </div>
       <div class="flex-col-gap-6 mt-4">
-        <button onclick="triggerSectorFlag('yellow_s1')" class="sector-btn">
-          <span class="font-16">🟡</span>
+        <button onclick="triggerSectorFlag(1)" class="sector-btn">
+          <span class="font-16 sector-modal-btn-emoji">🟡</span>
           <div>
             <div class="font-12-bold">Sector 1</div>
           </div>
         </button>
-        <button onclick="triggerSectorFlag('yellow_s2')" class="sector-btn">
-          <span class="font-16">🟡</span>
+        <button onclick="triggerSectorFlag(2)" class="sector-btn">
+          <span class="font-16 sector-modal-btn-emoji">🟡</span>
           <div>
             <div class="font-12-bold">Sector 2</div>
           </div>
         </button>
-        <button onclick="triggerSectorFlag('yellow_s3')" class="sector-btn">
-          <span class="font-16">🟡</span>
+        <button onclick="triggerSectorFlag(3)" class="sector-btn">
+          <span class="font-16 sector-modal-btn-emoji">🟡</span>
           <div>
             <div class="font-12-bold">Sector 3</div>
           </div>
@@ -2390,6 +2430,19 @@ function sanitizeKeybinds(keybinds) {
       yellow_s1: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 1", color: "yellow", sound: "YellowFlagSector1.mp4" },
       yellow_s2: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 2", color: "yellow", sound: "YellowFlagSector2.mp4" },
       yellow_s3: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 3", color: "yellow", sound: "YellowFlagSector3.mp4" },
+      sector_green_s1: { emoji: "🟢", title: "Green Flag", sub: "🟢 Green flag — Sector 1", color: "green", sound: "SectorGreenS1.mp4" },
+      sector_green_s2: { emoji: "🟢", title: "Green Flag", sub: "🟢 Green flag — Sector 2", color: "green", sound: "SectorGreenS2.mp4" },
+      sector_green_s3: { emoji: "🟢", title: "Green Flag", sub: "🟢 Green flag — Sector 3", color: "green", sound: "SectorGreenS3.mp4" },
+      sector_white_s1: { emoji: "⚪", title: "White Flag", sub: "⚪ Slower vehicle — Sector 1", color: "white", sound: "SectorWhiteS1.mp4" },
+      sector_white_s2: { emoji: "⚪", title: "White Flag", sub: "⚪ Slower vehicle — Sector 2", color: "white", sound: "SectorWhiteS2.mp4" },
+      sector_white_s3: { emoji: "⚪", title: "White Flag", sub: "⚪ Slower vehicle — Sector 3", color: "white", sound: "SectorWhiteS3.mp4" },
+      sector_double_yellow_s1: { emoji: "🟡", title: "Double Yellow", sub: "🟡 Double yellow — Sector 1", color: "yellow", sound: "SectorDoubleYellowS1.mp4" },
+      sector_double_yellow_s2: { emoji: "🟡", title: "Double Yellow", sub: "🟡 Double yellow — Sector 2", color: "yellow", sound: "SectorDoubleYellowS2.mp4" },
+      sector_double_yellow_s3: { emoji: "🟡", title: "Double Yellow", sub: "🟡 Double yellow — Sector 3", color: "yellow", sound: "SectorDoubleYellowS3.mp4" },
+      black_orange: { emoji: "⚫", title: "Black & Orange Flag", sub: "Called to pits — mechanical issue.", color: "orange", sound: "BlackOrangeFlag.mp4" },
+      black_flag: { emoji: "⚫", title: "Black Flag", sub: "Disqualified — head to pit lane.", color: "red", sound: "BlackFlag.mp4" },
+      vsc_on: { emoji: "🚨", title: "Virtual Safety Car", sub: "VSC deployed — reduce speed.", color: "orange", sound: "VSCDeployed.mp4" },
+      vsc_off: { emoji: "🚨", title: "VSC Ending", sub: "VSC ending — prepare for green.", color: "orange", sound: "VSCEnding.mp4" },
     };
 
     let DRIVER_IDS = {
@@ -4016,7 +4069,31 @@ function canEngineerForActiveLeague() {
       return match ? match[1] : null;
     }
 
-    function openBlueFlagModal() {
+    const DRIVER_FLAG_META = {
+      blue: { emoji: "🔵", title: "BLUE FLAG", titleClass: "text-blue", sub: "Select a driver to blue flag",
+        cardClass: "blue", cardTitle: (name) => `Blue Flag — ${name}`,
+        cardSub: (number, callsign) => `#${number} · ${callsign} — let the leaders past.`,
+        toast: (name) => `✓ Blue Flag — ${name}` },
+      black_orange: { emoji: "⚫", title: "BLACK & ORANGE FLAG", titleClass: "", sub: "Select a driver to call to pits",
+        cardClass: "orange", cardTitle: (name) => `Black & Orange — ${name}`,
+        cardSub: (number, callsign) => `#${number} · ${callsign} — called to pits, mechanical issue.`,
+        toast: (name) => `✓ Black & Orange — ${name}` },
+      black_flag: { emoji: "⚫", title: "BLACK FLAG", titleClass: "text-red", sub: "Select a driver to disqualify",
+        cardClass: "red", cardTitle: (name) => `Black Flag — ${name}`,
+        cardSub: (number, callsign) => `#${number} · ${callsign} — disqualified, head to pit lane.`,
+        toast: (name) => `✓ Black Flag — ${name}` },
+    };
+    let _driverFlagModalType = "blue";
+
+    function openDriverFlagModal(flagType = "blue") {
+      _driverFlagModalType = flagType;
+      const meta = DRIVER_FLAG_META[flagType] || DRIVER_FLAG_META.blue;
+      document.getElementById("blueflag-modal-emoji").textContent = meta.emoji;
+      const titleEl = document.getElementById("blueflag-modal-title");
+      titleEl.textContent = meta.title;
+      titleEl.className = `font-13 fw-800 ${meta.titleClass}`;
+      document.getElementById("blueflag-modal-sub").textContent = meta.sub;
+
       const list = document.getElementById("blueflag-driver-list");
       const activePlayers = _lastRaceState?.drivers?.length
         ? _lastRaceState.drivers
@@ -4044,7 +4121,7 @@ function canEngineerForActiveLeague() {
         <div style="padding:3px 8px;background:${color}22;font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${color};">${emoji} ${label}</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:${color}22;">
 ${drivers.map(d => `
-  <button onclick="triggerBlueFlagForDriver('${d.name}', '${d.number}', '${d.callsign}')"
+  <button onclick="triggerDriverFlag('${flagType}', '${d.name}', '${d.number}', '${d.callsign}')"
     style="display:flex;flex-direction:column;gap:3px;padding:10px;background:var(--surface);border:none;cursor:pointer;color:var(--text);font-family:'Oxanium',sans-serif;width:100%;text-align:left;transition:background 0.12s;"
     onmouseover="this.style.background='${color}22'"
     onmouseout="this.style.background='var(--surface)'">
@@ -4062,6 +4139,10 @@ ${drivers.map(d => `
       if (bfSearchEl) { bfSearchEl.value = ""; filterBlueFlagList(""); }
       document.getElementById("blueflag-modal").style.display = "flex";
     }
+
+    function openBlueFlagModal() { openDriverFlagModal("blue"); }
+    function openBlackOrangeModal() { openDriverFlagModal("black_orange"); }
+    function openBlackFlagModal() { openDriverFlagModal("black_flag"); }
 
     function closeBlueFlagModal() {
       document.getElementById("blueflag-modal").style.display = "none";
@@ -4175,29 +4256,33 @@ async function toggleActionLogging() {
       } catch (e) { console.warn("[DriverDB] Sync failed:", e.message); }
     }
 
-    async function triggerBlueFlagForDriver(name, number, callsign) {
+    async function triggerDriverFlag(flagType, name, number, callsign) {
       closeBlueFlagModal();
       if (!user?.token) return showToast("✗ Not authenticated as marshal", "err");
+      const meta = DRIVER_FLAG_META[flagType] || DRIVER_FLAG_META.blue;
       try {
         const res = await fetch(`${apiUrl}/flag`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token },
-          body: JSON.stringify({ flag: "blue", driver: name, number, callsign, username: user.username }),
+          body: JSON.stringify({ flag: flagType, driver: name, number, callsign, username: user.username }),
         });
         const data = await res.json();
         if (res.ok) {
-          showToast(`✓ Blue Flag — ${name}`, "ok");
-          _lastBlueFlagDriver = { name, number, callsign };
-          const html = `<div class="flag-card blue">
-        <span class="fc-emoji">🔵</span>
+          showToast(meta.toast(name), "ok");
+          if (flagType === "blue") _lastBlueFlagDriver = { name, number, callsign };
+          const html = `<div class="flag-card ${meta.cardClass}">
+        <span class="fc-emoji">${meta.emoji}</span>
         <div>
-          <div class="fc-title">Blue Flag — ${name}</div>
-          <div class="fc-sub">#${number} · ${callsign} — let the leaders past.</div>
+          <div class="fc-title">${meta.cardTitle(name)}</div>
+          <div class="fc-sub">${meta.cardSub(number, callsign)}</div>
         </div>
       </div>`;
           document.getElementById("flag-notif-driver").innerHTML = html;
           document.getElementById("flag-notif-marshal").innerHTML = html;
-          playFlagAudio(`BlueFlag_${name}.mp4`);
+          // Only Blue Flag has per-driver custom audio files (BlueFlag_NAME.mp4);
+          // Black Flag / Black & Orange use their plain generic flag sound.
+          const soundFile = flagType === "blue" ? `BlueFlag_${name}.mp4` : FLAG_DEFS[flagType]?.sound;
+          playFlagAudio(soundFile);
         } else {
           showToast(`✗ ${data.error}`, "err");
         }
@@ -4211,7 +4296,22 @@ async function toggleActionLogging() {
       showToast(`✓ Sound reset for ${flag}`, "ok");
     }
 
-    function openSectorModal() {
+    const SECTOR_FAMILY_META = {
+      yellow:               { emoji: "🟡", title: "YELLOW FLAG", titleClass: "text-yellow" },
+      sector_green:         { emoji: "🟢", title: "GREEN FLAG",  titleClass: "text-green" },
+      sector_white:         { emoji: "⚪", title: "WHITE FLAG",  titleClass: "" },
+      sector_double_yellow: { emoji: "🟡", title: "DOUBLE YELLOW", titleClass: "text-yellow" },
+    };
+    let _sectorModalFamily = "yellow";
+
+    function openSectorModal(family = "yellow") {
+      _sectorModalFamily = family;
+      const meta = SECTOR_FAMILY_META[family] || SECTOR_FAMILY_META.yellow;
+      document.getElementById("sector-modal-emoji").textContent = meta.emoji;
+      const titleEl = document.getElementById("sector-modal-title");
+      titleEl.textContent = meta.title;
+      titleEl.className = `font-13 fw-800 ${meta.titleClass}`;
+      document.querySelectorAll("#sector-modal .sector-modal-btn-emoji").forEach(el => el.textContent = meta.emoji);
       document.getElementById("sector-modal").style.display = "flex";
     }
     function closeSectorModal() {
@@ -4265,20 +4365,20 @@ async function toggleActionLogging() {
       } catch (e) { console.error("Audio error:", e); }
     }
 
-    async function triggerSectorFlag(flag) {
+    async function triggerSectorFlag(sectorNum) {
       closeSectorModal();
       if (!user?.token) return showToast("✗ Not authenticated as marshal", "err");
+      const flag = `${_sectorModalFamily}_s${sectorNum}`;
       try {
         const res = await fetch(`${apiUrl}/flag`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token },
-          body: JSON.stringify({ flag, username: user.username }),
+          body: JSON.stringify({ flag, sector: sectorNum, username: user.username }),
         });
         const data = await res.json();
         if (res.ok) {
-          const labels = { yellow_s1: "Sector 1", yellow_s2: "Sector 2", yellow_s3: "Sector 3" };
-          showToast(`✓ Yellow Flag — ${labels[flag]}`, "ok");
-          onFlagEvent(flag, null);
+          showToast(`✓ ${FLAG_DEFS[flag]?.title || flag} — Sector ${sectorNum}`, "ok");
+          onFlagEvent(flag, { sector: sectorNum });
         } else {
           showToast(`✗ ${data.error}`, "err");
         }
