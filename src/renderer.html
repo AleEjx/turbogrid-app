@@ -666,39 +666,38 @@
       <div>
         <div class="sec-label">Global Flags</div>
         <div class="flag-grid">
-          <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
-          <button class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-          <button class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
-          <button class="flag-btn yellow" onclick="triggerFlag('fcy')"><span class="fi">🟡</span><span class="fn">FCY</span></button>
-          <button class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
-          <button class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
-          <button class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
-          <button onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+          <button data-flag="green" class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
+          <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
+          <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+          <button data-flag-group="sector_green" class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+          <button data-flag-group="sector_white" class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
+          <button data-flag-group="sector_double_yellow" class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
+          <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="sec-label">Private / Driver Flags</div>
         <div class="flag-grid">
-          <button onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
-          <button onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+          <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+          <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="sec-label">Race Control Panel</div>
         <div class="flag-grid">
-          <button class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
-          <button class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
-          <button class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
+          <button data-flag="checkered" class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
+          <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
+          <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="sec-label">Safety Car</div>
         <div class="flag-grid">
-          <button class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
-          <button class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
+          <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
+          <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
         </div>
       </div>
     </div>
@@ -784,39 +783,38 @@
     <div>
       <div class="sec-label">Global Flags</div>
       <div class="flag-grid">
-        <button class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
-        <button class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-        <button class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
-        <button class="flag-btn yellow" onclick="triggerFlag('fcy')"><span class="fi">🟡</span><span class="fn">FCY</span></button>
-        <button class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
-        <button class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
-        <button class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
-        <button onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+        <button data-flag="green" class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
+        <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
+        <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+        <button data-flag-group="sector_green" class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+        <button data-flag-group="sector_white" class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
+        <button data-flag-group="sector_double_yellow" class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
+        <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
       </div>
     </div>
     <div class="divider"></div>
     <div>
       <div class="sec-label">Private / Driver Flags</div>
       <div class="flag-grid">
-        <button onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
-        <button onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+        <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+        <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
       </div>
     </div>
     <div class="divider"></div>
     <div>
       <div class="sec-label">Race Control Panel</div>
       <div class="flag-grid">
-        <button class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
-        <button class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
-        <button class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
+        <button data-flag="checkered" class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
+        <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
+        <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
       </div>
     </div>
     <div class="divider"></div>
     <div>
       <div class="sec-label">Safety Car</div>
       <div class="flag-grid">
-        <button class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
-        <button class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
+        <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
+        <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
       </div>
     </div>
 <div class="divider"></div>
@@ -1039,7 +1037,11 @@
           <button onclick="devTogglePanel('both',false)" class="dev-btn font-9">Disable All</button>
         </div>
         <div id="dev-panel-status" class="text-muted-sm mt-4"></div>
-        <div class="flex-row-gap-6 mt-6" style="border-top:1px solid var(--border);padding-top:8px;">
+      </div>
+
+      <div class="dev-card" id="dev-league-card">
+        <div class="dev-title">League</div>
+        <div class="flex-row-gap-6 mt-4">
           <button id="btn-league-main" onclick="devSwitchLeague('main')" class="dev-btn success-small">Main
             League</button>
           <button id="btn-league-academy" onclick="devSwitchLeague('academy')" class="dev-btn font-9">Academy
@@ -2101,8 +2103,40 @@
     const DRIVER_ROLE = "1508040781145837588";
     const MARSHAL_ROLE = "1411021822153064579";
     const DIRECTOR_ROLES = ["1411021815127740417"];
+    const FLAG_COMMITTEE_ROLE = "1411021815127740417"; // same as DIRECTOR_ROLES[0] — Race Control
     const DEV_USER_ID = "790254318389166111";
     const GIST_ID = "5972ed8f48195923cdca1fa6cd7ffdfc";
+
+    // Flag permission groups — mirrors the backend's canCallFlag() exactly.
+    // Marshal role: everyday racing-condition flags. Committee role: the
+    // more consequential race-control actions. This is purely a UI-hiding
+    // layer for a cleaner panel — the real enforcement is server-side in
+    // flagApi.js's /flag route, so a hidden button here is never the only
+    // thing standing between someone and an action they shouldn't have.
+    const FLAG_GROUP_MARSHAL = new Set([
+      "yellow", "sector_green", "sector_white", "sector_double_yellow", // sector-picker trigger buttons (data-flag-group)
+      "green", "blue", "black_orange",
+    ]);
+    const FLAG_GROUP_COMMITTEE = new Set([
+      "red", "safety_car", "sc_ending", "vsc_on", "vsc_off", "black_flag", "checkered",
+    ]);
+
+    function canCallFlagClient(flag) {
+      if (hasDev || user?.isAdmin) return true;
+      const roles = user?.roles || [];
+      if (FLAG_GROUP_MARSHAL.has(flag)) return roles.includes(MARSHAL_ROLE);
+      if (FLAG_GROUP_COMMITTEE.has(flag)) return roles.includes(FLAG_COMMITTEE_ROLE);
+      return true;
+    }
+
+    function applyFlagPermissions() {
+      document.querySelectorAll("[data-flag]").forEach(btn => {
+        btn.style.display = canCallFlagClient(btn.dataset.flag) ? "" : "none";
+      });
+      document.querySelectorAll("[data-flag-group]").forEach(btn => {
+        btn.style.display = canCallFlagClient(btn.dataset.flagGroup) ? "" : "none";
+      });
+    }
 
     const INVALID_KEYBIND_VALUES = new Set([
   "Pause", "CapsLock", "ScrollLock", "NumLock", "Meta", "ContextMenu",
@@ -2513,6 +2547,7 @@ function sanitizeKeybinds(keybinds) {
     let hasSpectator = false;
     let isTeamPrincipal = false; // Team Principal — scoped Dev panel access (their team's drivers only)
     let principalTeam = null; // { id, name, emoji, color, roleId, principalDiscordId } when isTeamPrincipal
+    let isLeagueManager = false; // League Manager role — scoped Dev panel access (League switch, Toggles, Driver DB, Teams — full)
     let toastTimer;
     let _currentFlagAudio = null;
     let _actionLoggingEnabled = false;
@@ -3423,11 +3458,15 @@ async function toggleAttendance(name) {
       renderLeaderboard({ ..._lastRaceState, drivers: filtered });
     }
 
-    // Full devs see everything. Team Principals (not also full devs) get a
-    // restricted view: only their own team's driver card, nothing else.
+    // Full devs see everything. Team Principals and League Managers (not
+    // also full devs) get restricted views, checked in priority order.
     function applyDevPanelAccess() {
       if (isTeamPrincipal && !hasDev) {
         applyPrincipalDevAccess();
+        return;
+      }
+      if (isLeagueManager && !hasDev) {
+        applyLeagueManagerDevAccess();
         return;
       }
 
@@ -3462,6 +3501,26 @@ async function toggleAttendance(name) {
       if (toolboxBtn) toolboxBtn.style.display = "none";
       const heading = document.querySelector("#screen-dev .dev-heading");
       if (heading) heading.textContent = `⚙️ ${principalTeam?.name || "Team"} — Driver Database`;
+    }
+
+    // League Manager restricted view — League switch, Toggles, Driver
+    // Database (full), Teams (full). Nothing else — no Blacklist, Audit
+    // Log, Active Sessions, Export/Import/Reset, or Toolbox visibility.
+    const LEAGUE_MANAGER_CARDS = ["dev-league-card", "dev-toggles", "dev-drivers-card", "dev-teams-card"];
+    function applyLeagueManagerDevAccess() {
+      document.querySelectorAll("#screen-dev .dev-card").forEach(card => {
+        card.style.display = LEAGUE_MANAGER_CARDS.includes(card.id) ? "" : "none";
+      });
+      const toolboxBtn = document.getElementById("dev-toolbox-btn");
+      if (toolboxBtn) toolboxBtn.style.display = "none";
+      const heading = document.querySelector("#screen-dev .dev-heading");
+      if (heading) heading.textContent = "⚙️ League Manager";
+      // Export Code, Import Code, and Reset to Defaults — full dev only,
+      // even though this role gets full Driver Database read/write.
+      ["dev-export-code-btn", "dev-import-code-btn", "dev-reset-db-btn"].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.style.display = "none";
+      });
     }
 
     // DD
@@ -4557,9 +4616,13 @@ loadPracticeLaps();
 const saved = sessionStorage.getItem("rc_user") || localStorage.getItem("rc_user");
 if (saved && apiUrl) {
   user = JSON.parse(saved);
+  const wasLeagueManagerOnly = !!user.leagueManagerOnly;
   delete user.isAdmin;
   if (user.spectatorOnly) {
     enterSpectatorMode();
+  } else if (wasLeagueManagerOnly) {
+    isLeagueManager = true;
+    enterLeagueManagerMode();
   } else {
     if (!user.driverToken) user.driverToken = user.id;
     await afterLogin();
@@ -4921,6 +4984,23 @@ function _renderFuelStats() {
     enterSpectatorMode();
     return;
   }
+  if (dData.leagueManagerOnly) {
+    user = dData.user;
+    user.discordId = user.id;
+    user.roles = dData.roles || [];
+    user.token = dData.user.token || null;
+    const safeUser = {
+      id: user.id, discordId: user.id, username: user.username, avatar: user.avatar,
+      token: user.token, marshalToken: null, driverToken: null, roles: user.roles, leagueManagerOnly: true,
+    };
+    sessionStorage.setItem("rc_user", JSON.stringify(safeUser));
+    localStorage.setItem("rc_user", JSON.stringify(safeUser));
+    user = { ...user, ...safeUser };
+    errEl.textContent = "";
+    isLeagueManager = true;
+    enterLeagueManagerMode();
+    return;
+  }
   user = dData.user;
   user.driverToken = user.id;
   user.token = dData.user.token || null;
@@ -5097,6 +5177,17 @@ async function checkPrincipalAccess() {
 // role at all — lands directly on a restricted Dev panel (their team's
 // drivers only), same idea as the old Junior Dev bypass.
 function enterPrincipalOnlyMode() {
+  hasDriver = false; hasMarshal = false; hasDev = false; hasSpectator = false;
+  engineerPending = false;
+  document.getElementById("mode-badge").style.display = "none";
+  updateSwitcher();
+  switchPanel("dev");
+}
+
+// League Manager role — no Driver/Marshal/Spectator role required. Lands
+// directly on a restricted Dev panel: League switch, Toggles, Driver
+// Database (full), Teams (full) — nothing else.
+function enterLeagueManagerMode() {
   hasDriver = false; hasMarshal = false; hasDev = false; hasSpectator = false;
   engineerPending = false;
   document.getElementById("mode-badge").style.display = "none";
@@ -5699,7 +5790,7 @@ function updateSwitcher() {
     return;
   }
 
-  const show = hasDriver || hasMarshal || hasDev || isTeamPrincipal || hasSpectator || (_committeeAccess && _committeeModeEnabled);
+  const show = hasDriver || hasMarshal || hasDev || isTeamPrincipal || isLeagueManager || hasSpectator || (_committeeAccess && _committeeModeEnabled);
   document.getElementById("panel-switcher").style.display = show ? "flex" : "none";
   const spectatorOnly = hasSpectator && !hasDriver && !hasMarshal && !hasDev;
   const driverTabAllowed = !spectatorOnly && hasDriver && (config.driver || engineerPending || hasMarshal);
@@ -5711,10 +5802,10 @@ function updateSwitcher() {
   swDriverBtn.title = driverNeedsChoice ? "Choose Racer or Engineer first" : "";
   document.getElementById("sw-marshal").style.display = (!spectatorOnly && _userTabPrefs.marshal !== false) ? "" : "none";
   document.getElementById("sw-spectate").style.display = _userTabPrefs.spectate !== false ? "" : "none";
-  document.getElementById("sw-dev").style.display = ((!spectatorOnly || isTeamPrincipal) && (hasDev || isTeamPrincipal) && _userTabPrefs.dev !== false) ? "" : "none";
+  document.getElementById("sw-dev").style.display = ((!spectatorOnly || isTeamPrincipal || isLeagueManager) && (hasDev || isTeamPrincipal || isLeagueManager) && _userTabPrefs.dev !== false) ? "" : "none";
   document.getElementById("sw-committee").style.display = (_committeeAccess && _committeeModeEnabled) ? "" : "none";
   const utabDevRow = document.getElementById("utab-dev-row");
-  if (utabDevRow) utabDevRow.style.display = (hasDev || isTeamPrincipal) ? "" : "none";
+  if (utabDevRow) utabDevRow.style.display = (hasDev || isTeamPrincipal || isLeagueManager) ? "" : "none";
   document.querySelectorAll(".switch-btn").forEach(b => b.classList.remove("active"));
   const aId = currentPanel === "driver" ? "sw-driver"
     : currentPanel === "marshal" ? "sw-marshal"
@@ -7057,6 +7148,7 @@ function launchMarshalPanel(startPoll = true) {
       updateSwitcher();
       if (user?.roles?.includes(MARSHAL_ROLE) || DIRECTOR_ROLES.some(r => user?.roles?.includes(r)) || user?.isAdmin || hasDev)
   document.getElementById("m-race-setup").style.display = "block";
+      applyFlagPermissions();
       renderAttendance();
       if (startPoll) {
         if (_marshalPollInterval) clearInterval(_marshalPollInterval);
@@ -8128,6 +8220,21 @@ async function submitDNF(onTrack = false) {
         // fetch entirely (it would 403 anyway) and load just their team.
         if (isTeamPrincipal && !hasDev) {
           await loadPrincipalTeamDrivers();
+          return;
+        }
+
+        // League Manager (not also a full dev) — only needs League state,
+        // Toggles state, and Driver Database + Teams. Skip every strictly
+        // isAdmin-only endpoint entirely (info, sessions, audit, driver
+        // logins) since those would just 403 for this role.
+        if (isLeagueManager && !hasDev) {
+          if (!user?.token) { showToast("❌ League Manager session invalid — please log in again", "err"); return; }
+          await loadActionLoggingState();
+          await loadWatchMarshalState();
+          await fetchActiveLeague();
+          await syncDriverDBFromServer();
+          await loadTeamsForAdmin();
+          renderDriverDB();
           return;
         }
 
