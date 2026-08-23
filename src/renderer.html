@@ -699,8 +699,6 @@
         <div class="flag-grid">
           <button class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
           <button class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
-          <button class="flag-btn orange" onclick="triggerFlag('sc_speedup')"><span class="fi">🟠</span><span class="fn">Speed Up</span></button>
-          <button class="flag-btn orange" onclick="triggerFlag('sfl')"><span class="fi">🟠</span><span class="fn">SFL</span></button>
         </div>
       </div>
     </div>
@@ -819,8 +817,6 @@
       <div class="flag-grid">
         <button class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
         <button class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
-        <button class="flag-btn orange" onclick="triggerFlag('sc_speedup')"><span class="fi">🟠</span><span class="fn">Speed Up</span></button>
-        <button class="flag-btn orange" onclick="triggerFlag('sfl')"><span class="fi">🟠</span><span class="fn">SFL</span></button>
       </div>
     </div>
 <div class="divider"></div>
@@ -3473,12 +3469,15 @@ async function toggleAttendance(name) {
 
 const DRIVER_ROLE_MAIN    = "1508040781145837588";
 const DRIVER_ROLE_ACADEMY = "1515661732507418765";
+const ENGINEER_ROLE_MAIN    = "1540772132571709501";
+const ENGINEER_ROLE_ACADEMY = "1540772142650499165";
 
 function canEngineerForActiveLeague() {
   if (hasDev) return true; // devs aren't league-restricted
   const requiredRole = _activeLeague === "academy" ? DRIVER_ROLE_ACADEMY : DRIVER_ROLE_MAIN;
+  const requiredEngineerRole = _activeLeague === "academy" ? ENGINEER_ROLE_ACADEMY : ENGINEER_ROLE_MAIN;
   const roles = user?.roles || [];
-  return roles.includes(MARSHAL_ROLE) || roles.includes(requiredRole);
+  return roles.includes(MARSHAL_ROLE) || roles.includes(requiredRole) || roles.includes(requiredEngineerRole);
 }
 
     function driverDbKey() {
