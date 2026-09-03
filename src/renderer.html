@@ -667,20 +667,21 @@
         <div class="sec-label">Global Flags</div>
         <div class="flag-grid">
           <button data-flag="green" class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
-          <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-          <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
           <button data-flag-group="sector_green" class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+          <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+          <button data-flag-group="sector_double_yellow" class="flag-btn yellow" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
           <button data-flag-group="sector_white" class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
-          <button data-flag-group="sector_double_yellow" class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
-          <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+          <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="sec-label">Private / Driver Flags</div>
         <div class="flag-grid">
-          <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
-          <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+          <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+          <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+          <button data-flag="black_white" onclick="openBlackWhiteModal()" class="flag-btn white"><span class="fi">⚫⚪</span><span class="fn">Black & White</span></button>
+          <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
         </div>
       </div>
       <div class="divider"></div>
@@ -688,16 +689,20 @@
         <div class="sec-label">Race Control Panel</div>
         <div class="flag-grid">
           <button data-flag="checkered" class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
-          <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
-          <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
+          <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC Deploy</span></button>
+          <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC End</span></button>
         </div>
       </div>
       <div class="divider"></div>
       <div>
         <div class="sec-label">Safety Car</div>
         <div class="flag-grid">
-          <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
-          <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
+          <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">SC Deploy</span></button>
+          <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">SC End</span></button>
+          <button data-flag="sc_speedup" class="flag-btn orange" onclick="triggerFlag('sc_speedup')"><span class="fi">🟠</span><span class="fn">Catch Up</span></button>
+          <button data-flag="sfl" class="flag-btn orange" onclick="triggerFlag('sfl')"><span class="fi">🟠</span><span class="fn">Single File</span></button>
+          <button data-flag="lapped_overtake" class="flag-btn orange" onclick="triggerFlag('lapped_overtake')"><span class="fi">🟠</span><span class="fn">Lapped Overtake</span></button>
+          <button data-flag="lapped_hold" class="flag-btn orange" onclick="triggerFlag('lapped_hold')"><span class="fi">🟠</span><span class="fn">Lapped Hold</span></button>
         </div>
       </div>
     </div>
@@ -784,20 +789,21 @@
       <div class="sec-label">Global Flags</div>
       <div class="flag-grid">
         <button data-flag="green" class="flag-btn green" onclick="triggerFlag('green')"><span class="fi">🟢</span><span class="fn">Full Course Green</span></button>
-        <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
-        <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
         <button data-flag-group="sector_green" class="flag-btn green" onclick="openSectorModal('sector_green')"><span class="fi">🟢</span><span class="fn">Sector Green</span></button>
+        <button data-flag-group="yellow" class="flag-btn yellow" onclick="openSectorModal('yellow')"><span class="fi">🟡</span><span class="fn">Yellow</span></button>
+        <button data-flag-group="sector_double_yellow" class="flag-btn yellow" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
         <button data-flag-group="sector_white" class="flag-btn white" onclick="openSectorModal('sector_white')"><span class="fi">⚪</span><span class="fn">Sector White</span></button>
-        <button data-flag-group="sector_double_yellow" class="flag-btn yellow grid-span-2" onclick="openSectorModal('sector_double_yellow')"><span class="fi">🟡</span><span class="fn">Double Yellow</span></button>
-        <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue grid-span-2"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+        <button data-flag="red" class="flag-btn red" onclick="triggerFlag('red')"><span class="fi">🔴</span><span class="fn">Red</span></button>
       </div>
     </div>
     <div class="divider"></div>
     <div>
       <div class="sec-label">Private / Driver Flags</div>
       <div class="flag-grid">
-        <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange grid-span-2"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
-        <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red grid-span-2"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
+        <button data-flag="blue" onclick="openBlueFlagModal()" class="flag-btn blue"><span class="fi">🔵</span><span class="fn">Blue Flag</span></button>
+        <button data-flag="black_orange" onclick="openBlackOrangeModal()" class="flag-btn orange"><span class="fi">⚫🟠</span><span class="fn">Black & Orange</span></button>
+        <button data-flag="black_white" onclick="openBlackWhiteModal()" class="flag-btn white"><span class="fi">⚫⚪</span><span class="fn">Black & White</span></button>
+        <button data-flag="black_flag" onclick="openBlackFlagModal()" class="flag-btn red"><span class="fi">⚫</span><span class="fn">Black Flag</span></button>
       </div>
     </div>
     <div class="divider"></div>
@@ -805,16 +811,20 @@
       <div class="sec-label">Race Control Panel</div>
       <div class="flag-grid">
         <button data-flag="checkered" class="flag-btn white grid-span-2" onclick="triggerFlag('checkered')"><span class="fi">🏁</span><span class="fn">Checkered Flag</span></button>
-        <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC On</span></button>
-        <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC Off</span></button>
+        <button data-flag="vsc_on" class="flag-btn orange" onclick="triggerFlag('vsc_on')"><span class="fi">🚨</span><span class="fn">VSC Deploy</span></button>
+        <button data-flag="vsc_off" class="flag-btn orange" onclick="triggerFlag('vsc_off')"><span class="fi">🚨</span><span class="fn">VSC End</span></button>
       </div>
     </div>
     <div class="divider"></div>
     <div>
       <div class="sec-label">Safety Car</div>
       <div class="flag-grid">
-        <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">Deploy</span></button>
-        <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">Ending</span></button>
+        <button data-flag="safety_car" class="flag-btn orange" onclick="triggerFlag('safety_car')"><span class="fi">🟠</span><span class="fn">SC Deploy</span></button>
+        <button data-flag="sc_ending" class="flag-btn orange" onclick="triggerFlag('sc_ending')"><span class="fi">🟠</span><span class="fn">SC End</span></button>
+        <button data-flag="sc_speedup" class="flag-btn orange" onclick="triggerFlag('sc_speedup')"><span class="fi">🟠</span><span class="fn">Catch Up</span></button>
+        <button data-flag="sfl" class="flag-btn orange" onclick="triggerFlag('sfl')"><span class="fi">🟠</span><span class="fn">Single File</span></button>
+        <button data-flag="lapped_overtake" class="flag-btn orange" onclick="triggerFlag('lapped_overtake')"><span class="fi">🟠</span><span class="fn">Lapped Overtake</span></button>
+        <button data-flag="lapped_hold" class="flag-btn orange" onclick="triggerFlag('lapped_hold')"><span class="fi">🟠</span><span class="fn">Lapped Hold</span></button>
       </div>
     </div>
 <div class="divider"></div>
@@ -1400,7 +1410,7 @@
                 class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('sc_ending')"
                 class="snd-reset-btn">✕</button></div>
           </div>
-          <div class="s-sound-row"><span class="s-sound-label">🟠 Speed Up</span>
+          <div class="s-sound-row"><span class="s-sound-label">🟠 Catch Up</span>
             <div class="flex-row-gap-4"><button onclick="pickFlagSound('sc_speedup')" id="fsnd-sc_speedup-btn"
                 class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('sc_speedup')"
                 class="snd-reset-btn">✕</button></div>
@@ -1408,6 +1418,21 @@
           <div class="s-sound-row"><span class="s-sound-label">🟠 Single File</span>
             <div class="flex-row-gap-4"><button onclick="pickFlagSound('sfl')" id="fsnd-sfl-btn"
                 class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('sfl')"
+                class="snd-reset-btn">✕</button></div>
+          </div>
+          <div class="s-sound-row"><span class="s-sound-label">🟠 Lapped Overtake</span>
+            <div class="flex-row-gap-4"><button onclick="pickFlagSound('lapped_overtake')" id="fsnd-lapped_overtake-btn"
+                class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('lapped_overtake')"
+                class="snd-reset-btn">✕</button></div>
+          </div>
+          <div class="s-sound-row"><span class="s-sound-label">🟠 Lapped Hold</span>
+            <div class="flex-row-gap-4"><button onclick="pickFlagSound('lapped_hold')" id="fsnd-lapped_hold-btn"
+                class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('lapped_hold')"
+                class="snd-reset-btn">✕</button></div>
+          </div>
+          <div class="s-sound-row"><span class="s-sound-label">⚫⚪ Black & White</span>
+            <div class="flex-row-gap-4"><button onclick="pickFlagSound('black_white')" id="fsnd-black_white-btn"
+                class="snd-pick-btn">📁 Choose</button><button onclick="resetFlagSound('black_white')"
                 class="snd-reset-btn">✕</button></div>
           </div>
           <div class="s-sound-row no-border-bottom"><span class="s-sound-label">🏁 Checkered</span>
@@ -2104,6 +2129,7 @@
     const MARSHAL_ROLE = "1411021822153064579";
     const DIRECTOR_ROLES = ["1411021815127740417"];
     const FLAG_COMMITTEE_ROLE = "1411021815127740417"; // same as DIRECTOR_ROLES[0] — Race Control
+    const LEAGUE_MANAGER_ROLE = "1411021818411614218"; // "Leadership" — mirrors flagApi.js's LEAGUE_MANAGER_ROLE
     const DEV_USER_ID = "790254318389166111";
     const GIST_ID = "5972ed8f48195923cdca1fa6cd7ffdfc";
 
@@ -2115,7 +2141,8 @@
     // thing standing between someone and an action they shouldn't have.
     const FLAG_GROUP_MARSHAL = new Set([
       "yellow", "sector_green", "sector_white", "sector_double_yellow", // sector-picker trigger buttons (data-flag-group)
-      "green", "blue", "black_orange",
+      "green", "blue", "black_orange", "black_white",
+      "sc_speedup", "sfl", "lapped_overtake", "lapped_hold",
     ]);
     const FLAG_GROUP_COMMITTEE = new Set([
       "red", "safety_car", "sc_ending", "vsc_on", "vsc_off", "black_flag", "checkered",
@@ -2454,8 +2481,10 @@ function sanitizeKeybinds(keybinds) {
       blue: { emoji: "🔵", title: "Blue Flag", sub: "Let the leaders past.", color: "blue", sound: "Blue_Flag.mp4" },
       safety_car: { emoji: "🟠", title: "Safety Car", sub: "Safety car deployed — hold position.", color: "orange", sound: "SCDeployed.mp4" },
       sc_ending: { emoji: "🟠", title: "Safety Car Ending", sub: "Safety car coming in — prepare for restart.", color: "orange", sound: "SafetyCarEnding.mp4" },
-      sc_speedup: { emoji: "🟠", title: "Speed Up", sub: "Safety car speeding up — get ready.", color: "orange", sound: "SCSpeedup.mp4" },
+      sc_speedup: { emoji: "🟠", title: "Catch Up", sub: "Safety car speeding up — get ready.", color: "orange", sound: "SCSpeedup.mp4" },
       sfl: { emoji: "🟠", title: "Single File", sub: "Form single file behind the safety car.", color: "orange", sound: "SFL.mp4" },
+      lapped_overtake: { emoji: "🟠", title: "Lapped Overtake", sub: "Lapped cars may overtake the safety car.", color: "orange", sound: "LappedOvertake.mp4" },
+      lapped_hold: { emoji: "🟠", title: "Lapped Hold", sub: "Lapped cars maintain position.", color: "orange", sound: "LappedHold.mp4" },
       checkered: { emoji: "🏁", title: "Checkered Flag", sub: "Race over — cool down lap.", color: "white", sound: null },
       yellow_s1: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 1", color: "yellow", sound: "YellowFlagSector1.mp4" },
       yellow_s2: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 2", color: "yellow", sound: "YellowFlagSector2.mp4" },
@@ -2471,6 +2500,7 @@ function sanitizeKeybinds(keybinds) {
       sector_double_yellow_s3: { emoji: "🟡", title: "Double Yellow", sub: "🟡 Double yellow — Sector 3", color: "yellow", sound: "SectorDoubleYellowS3.mp4" },
       black_orange: { emoji: "⚫", title: "Black & Orange Flag", sub: "Called to pits — mechanical issue.", color: "orange", sound: "BlackOrangeFlag.mp4" },
       black_flag: { emoji: "⚫", title: "Black Flag", sub: "Disqualified — head to pit lane.", color: "red", sound: "BlackFlag.mp4" },
+      black_white: { emoji: "⚫⚪", title: "Black & White Flag", sub: "Official warning — unsportsmanlike behavior.", color: "white", sound: "BlackWhiteFlag.mp4" },
       vsc_on: { emoji: "🚨", title: "Virtual Safety Car", sub: "VSC deployed — reduce speed.", color: "orange", sound: "VSCDeployed.mp4" },
       vsc_off: { emoji: "🚨", title: "VSC Ending", sub: "VSC ending — prepare for green.", color: "orange", sound: "VSCEnding.mp4" },
     };
@@ -3583,11 +3613,11 @@ function canEngineerForActiveLeague() {
         DRIVER_IDS[d.discordId] = d.name;
         DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign, team: d.team };
       });
-      if (apiUrl && user?.token) {
+      if (apiUrl && scopedAuthToken()) {
         try {
           const res = await fetch(`${apiUrl}/admin/driver-db`, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token },
+            headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": scopedAuthToken() },
             body: JSON.stringify({ drivers, league: _activeLeague }),
           });
           if (res.ok) console.log("[DriverDB] Synced to server");
@@ -3804,9 +3834,10 @@ function canEngineerForActiveLeague() {
     }
 
     async function loadTeamsForAdmin() {
-      if (!apiUrl || !user?.token) return;
+      const tok = scopedAuthToken();
+      if (!apiUrl || !tok) return;
       try {
-        const res = await fetch(`${apiUrl}/admin/teams`, { headers: { "x-discord-id": user.id, "x-discord-token": user.token } });
+        const res = await fetch(`${apiUrl}/admin/teams`, { headers: { "x-discord-id": user.id, "x-discord-token": tok } });
         const data = await res.json();
         if (res.ok) _teamsCache = data.teams || [];
       } catch { /* leave cache as-is on failure */ }
@@ -4140,6 +4171,10 @@ function canEngineerForActiveLeague() {
         cardClass: "red", cardTitle: (name) => `Black Flag — ${name}`,
         cardSub: (number, callsign) => `#${number} · ${callsign} — disqualified, head to pit lane.`,
         toast: (name) => `✓ Black Flag — ${name}` },
+      black_white: { emoji: "⚫⚪", title: "BLACK & WHITE FLAG", titleClass: "", sub: "Select a driver to issue an official warning",
+        cardClass: "white", cardTitle: (name) => `Black & White Flag — ${name}`,
+        cardSub: (number, callsign) => `#${number} · ${callsign} — official warning, unsportsmanlike behavior.`,
+        toast: (name) => `✓ Black & White Flag — ${name}` },
     };
     let _driverFlagModalType = "blue";
 
@@ -4201,16 +4236,18 @@ ${drivers.map(d => `
     function openBlueFlagModal() { openDriverFlagModal("blue"); }
     function openBlackOrangeModal() { openDriverFlagModal("black_orange"); }
     function openBlackFlagModal() { openDriverFlagModal("black_flag"); }
+    function openBlackWhiteModal() { openDriverFlagModal("black_white"); }
 
     function closeBlueFlagModal() {
       document.getElementById("blueflag-modal").style.display = "none";
     }
 
     async function loadActionLoggingState() {
-      if (!apiUrl || !user?.token) return;
+      const tok = scopedAuthToken();
+      if (!apiUrl || !tok) return;
       try {
         const res = await fetch(`${apiUrl}/admin/action-logging`, {
-          headers: { "x-discord-id": user.id, "x-discord-token": user.token }
+          headers: { "x-discord-id": user.id, "x-discord-token": tok }
         });
         const data = await res.json();
         _actionLoggingEnabled = data.enabled;
@@ -4231,13 +4268,14 @@ ${drivers.map(d => `
     }
 
 async function toggleActionLogging() {
-      if (!user?.token) return showToast("✗ Not authenticated", "err");
+      const tok = scopedAuthToken();
+      if (!tok) return showToast("✗ Not authenticated", "err");
       _actionLoggingEnabled = !_actionLoggingEnabled;
       updateActionLogBtn();
       try {
         const res = await fetch(`${apiUrl}/admin/action-logging`, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token },
+          headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": tok },
           body: JSON.stringify({ enabled: _actionLoggingEnabled }),
         });
         const data = await res.json();
@@ -4278,12 +4316,13 @@ async function toggleActionLogging() {
     }
 
     async function toggleWatchMarshal() {
-      if (!user?.token) { const ok = await devAutoAuth(); if (!ok) return showToast("❌ Dev auth failed", "err"); }
+      let tok = scopedAuthToken();
+      if (!tok) { const ok = await devAutoAuth(); if (!ok) return showToast("❌ Dev auth failed", "err"); tok = user.token; }
       _watchMarshalEnabled = !_watchMarshalEnabled;
       updateWatchMarshalBtn();
       try {
-        let res = await fetch(`${apiUrl}/panel-status`, { method: "POST", headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token }, body: JSON.stringify({ target: "watchmarshal", enable: _watchMarshalEnabled }) });
-        if (res.status === 404) res = await fetch(`${apiUrl}/admin/panel-status`, { method: "POST", headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token }, body: JSON.stringify({ target: "watchmarshal", enable: _watchMarshalEnabled }) });
+        let res = await fetch(`${apiUrl}/panel-status`, { method: "POST", headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": tok }, body: JSON.stringify({ target: "watchmarshal", enable: _watchMarshalEnabled }) });
+        if (res.status === 404) res = await fetch(`${apiUrl}/admin/panel-status`, { method: "POST", headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": tok }, body: JSON.stringify({ target: "watchmarshal", enable: _watchMarshalEnabled }) });
         const data = await res.json();
         if (res.ok) {
           showToast(_watchMarshalEnabled ? "✓ WatchMarshal ON" : "✓ WatchMarshal OFF", "ok");
@@ -5202,6 +5241,14 @@ async function afterLogin() {
   await syncDriverDBFromServer();
   if (apiUrl) { _sseStarted = true; _connectSSE(); }
   hasDev = user.id === DEV_USER_ID;
+  // League Manager ("Leadership") role is only special-cased server-side
+  // for members with NO Driver/Marshal role (the standalone leagueManagerOnly
+  // response). Someone who's e.g. both a Marshal and Leadership never hits
+  // that branch, so isLeagueManager was never being set for them here —
+  // that's why they had the right Discord role but no Dev panel access.
+  // Checked from user.roles (already returned on every normal login) so it
+  // applies regardless of what other roles they hold.
+  isLeagueManager = isLeagueManager || !!(user?.roles?.includes(LEAGUE_MANAGER_ROLE));
   await checkPrincipalAccess();
   checkCommitteeAccess();
   if (hasDev) {
@@ -8126,16 +8173,18 @@ async function submitDNF(onTrack = false) {
         statusEl.style.color = "var(--muted)";
         statusEl.textContent = "Pushing...";
         try {
-          if (!user?.token) {
+          let tok = scopedAuthToken();
+          if (!tok) {
             const ok = await devAutoAuth();
             if (!ok) { statusEl.style.color = "var(--red)"; statusEl.textContent = "✗ Auth failed"; return; }
+            tok = user.token;
           }
           const res = await fetch(`${apiUrl}/admin/driver-db`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               "x-discord-id": user.id,
-              "x-discord-token": user.token
+              "x-discord-token": tok
             },
             body: JSON.stringify({ drivers, league: _activeLeague }),
           });
@@ -8180,6 +8229,16 @@ async function submitDNF(onTrack = false) {
           showToast("✗ Push failed", "err");
         }
       }
+
+      // League Managers (scoped Dev role, not full dev) only ever get a
+      // marshalToken, never a token — their token stays null (see the
+      // normal marshal-login branch above). Every League-Manager-scoped
+      // call below used to check/send `user.token` alone, so it always
+      // fell through to devAutoAuth() (which demands the real ADMIN_PASSWORD)
+      // even though their marshalToken is already a perfectly valid,
+      // now-correctly-permissioned session. This returns whichever token
+      // is actually populated.
+      function scopedAuthToken() { return user?.token || user?.marshalToken || null; }
 
       async function _validateToken(token) {
         try {
@@ -8228,7 +8287,7 @@ async function submitDNF(onTrack = false) {
         // isAdmin-only endpoint entirely (info, sessions, audit, driver
         // logins) since those would just 403 for this role.
         if (isLeagueManager && !hasDev) {
-          if (!user?.token) { showToast("❌ League Manager session invalid — please log in again", "err"); return; }
+          if (!scopedAuthToken()) { showToast("❌ League Manager session invalid — please log in again", "err"); return; }
           await loadActionLoggingState();
           await loadWatchMarshalState();
           await fetchActiveLeague();
@@ -8512,13 +8571,14 @@ async function submitDNF(onTrack = false) {
 
       async function devSwitchLeague(league) {
         if (league === _activeLeague) return;
-        if (!user?.token) { const ok = await devAutoAuth(); if (!ok) { showToast("❌ Dev auth failed", "err"); return; } }
+        let authToken = scopedAuthToken();
+        if (!authToken) { const ok = await devAutoAuth(); if (!ok) { showToast("❌ Dev auth failed", "err"); return; } authToken = user.token; }
         const statusEl = document.getElementById("dev-league-status");
         if (statusEl) { statusEl.style.color = "var(--muted)"; statusEl.textContent = "Switching..."; }
         try {
           const res = await fetch(`${apiUrl}/admin/league`, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": user.token },
+            headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": authToken },
             body: JSON.stringify({ league }),
           });
           const data = await res.json();
