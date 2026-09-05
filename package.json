@@ -1,6 +1,6 @@
 {
   "name": "turbogrid-driver",
-  "version": "1.0.1-beta.6",
+  "version": "1.0.1-beta.7",
   "description": "Turbo Grid Driver Panel",
   "main": "src/main.js",
   "author": "AleEjx",
