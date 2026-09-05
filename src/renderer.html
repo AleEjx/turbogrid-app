@@ -2485,7 +2485,7 @@ function sanitizeKeybinds(keybinds) {
       sfl: { emoji: "🟠", title: "Single File", sub: "Form single file behind the safety car.", color: "orange", sound: "SFL.mp4" },
       lapped_overtake: { emoji: "🟠", title: "Lapped Overtake", sub: "Lapped cars may overtake the safety car.", color: "orange", sound: "LappedOvertake.mp4" },
       lapped_hold: { emoji: "🟠", title: "Lapped Hold", sub: "Lapped cars maintain position.", color: "orange", sound: "LappedHold.mp4" },
-      checkered: { emoji: "🏁", title: "Checkered Flag", sub: "Race over — cool down lap.", color: "white", sound: null },
+      checkered: { emoji: "🏁", title: "Checkered Flag", sub: "Race over — cool down lap.", color: "white", sound: "CheckeredFlag.mp4" },
       yellow_s1: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 1", color: "yellow", sound: "YellowFlagSector1.mp4" },
       yellow_s2: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 2", color: "yellow", sound: "YellowFlagSector2.mp4" },
       yellow_s3: { emoji: "🟡", title: "Yellow Flag", sub: "🟡 Yellow flag — Sector 3", color: "yellow", sound: "YellowFlagSector3.mp4" },
@@ -3205,7 +3205,7 @@ function applyDriverPanelStyle() {
       if (_sseSource) { try { _sseSource.close(); } catch { } _sseSource = null; }
       if (!apiUrl) return;
 
-      const evtSource = new EventSource(`${apiUrl}/events?type=app`);
+      const evtSource = new EventSource(`${apiUrl}/events?type=app&driver=${encodeURIComponent(config.driver || "")}`);
       _sseSource = evtSource;
 
 evtSource.addEventListener("flag", e => {
@@ -3220,6 +3220,13 @@ evtSource.addEventListener("flag", e => {
         _sseSource = null;
         setTimeout(_connectSSE, 5000);
       };
+    }
+
+    // Reconnects the SSE stream so the server's record of "which driver is this
+    // client" stays in sync whenever config.driver changes (role switch, login,
+    // engineer assignment, etc). No-op if SSE hasn't started yet.
+    function refreshSSEIdentity() {
+      if (_sseStarted) _connectSSE();
     }
 
     function _registerHotkeys() {
@@ -5258,6 +5265,7 @@ async function afterLogin() {
   config.driver = "";
   config.engineer = false;
   isEngineer = false;
+  refreshSSEIdentity();
 const driverName = DRIVER_IDS[user.id];
   hasDriver = true;
   const racerEligible = !!driverName;
@@ -5344,6 +5352,7 @@ function chooseRoleRacer() {
   hasDriver = true;
   engineerPending = false;
   window.api.saveConfig(config);
+  refreshSSEIdentity();
   updateSwitcher();
   launchDriverPanel();
 }
@@ -5363,6 +5372,7 @@ function chooseRoleEngineer() {
       config.driver = "";
       engineerPending = true;
       isEngineer = false;
+      refreshSSEIdentity();
       hasDev = user?.id === DEV_USER_ID;
       const screen = document.getElementById("screen-login");
       screen.innerHTML = `
@@ -5442,6 +5452,7 @@ function skipEngineerScreen() {
   hasDriver = true;
   hasDev = true;
   window.api.saveConfig(config);
+  refreshSSEIdentity();
   updateSwitcher();
   launchDriverPanel();
 }
@@ -5630,6 +5641,7 @@ function practiceReset() {
       config.discordId = user.id; config.driverToken = user.driverToken || null; config.engineer = true; isEngineer = true;
       engineerPending = false;
       window.api.saveConfig(config);
+      refreshSSEIdentity();
 
       const engineers = JSON.parse(localStorage.getItem("rc_engineers") || "[]");
       const existing = engineers.findIndex(e => e.discordId === user.id);
