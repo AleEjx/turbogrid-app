@@ -837,14 +837,14 @@ ipcMain.handle("toggle-pitting2", () => {
   return inPits2;
 });
 ipcMain.handle("resume-hotkeys",    () => { registerHotkeys(config.keybinds); return true; });
-ipcMain.handle("open-releases", () => shell.openExternal("https://github.com/AleEjx/racecontrol-app/releases/latest"));
+ipcMain.handle("open-releases", () => shell.openExternal("https://github.com/AleEjx/turbogrid-app/releases/latest"));
 
 ipcMain.handle("install-release-version", async (event, tag) => {
   const sender = event.sender;
   try {
     const res = await new Promise((resolve, reject) => {
       https.get(
-        `https://api.github.com/repos/AleEjx/racecontrol-app/releases/tags/${tag}`,
+        `https://api.github.com/repos/AleEjx/turbogrid-app/releases/tags/${tag}`,
         { headers: { "User-Agent": "RaceControl-App" } },
         (r) => {
           let data = "";
