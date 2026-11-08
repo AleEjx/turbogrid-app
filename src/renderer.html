@@ -3628,16 +3628,25 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
         DRIVER_IDS[d.discordId] = d.name;
         DRIVER_INFO[d.name] = { number: d.number, callsign: d.callsign, team: d.team };
       });
-      if (apiUrl && scopedAuthToken()) {
-        try {
-          const res = await fetch(`${apiUrl}/admin/driver-db`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": scopedAuthToken() },
-            body: JSON.stringify({ drivers, league: _activeLeague }),
-          });
-          if (res.ok) console.log("[DriverDB] Synced to server");
-          else console.warn("[DriverDB] Server sync failed:", await res.text());
-        } catch (e) { console.warn("[DriverDB] Server sync error:", e.message); }
+      if (!(apiUrl && scopedAuthToken())) {
+        showToast("⚠ Not logged in — saved locally only", "err");
+        return false;
+      }
+      try {
+        const res = await fetch(`${apiUrl}/admin/driver-db`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-discord-id": user.id, "x-discord-token": scopedAuthToken() },
+          body: JSON.stringify({ drivers, league: _activeLeague }),
+        });
+        if (res.ok) { console.log("[DriverDB] Synced to server"); return true; }
+        const e = await res.json().catch(() => ({}));
+        console.warn("[DriverDB] Server sync failed:", e.error || res.status);
+        showToast(`✗ Server rejected save: ${e.error || res.status}`, "err");
+        return false;
+      } catch (e) {
+        console.warn("[DriverDB] Server sync error:", e.message);
+        showToast("✗ Server unreachable — saved locally only", "err");
+        return false;
       }
     }
 
@@ -3742,8 +3751,8 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
         <div class="drivers-name">${d.name}${t ? ` <span style="font-size:9px;color:${t.color || "var(--muted)"};">${t.emoji || ""} ${t.name}</span>` : ""}</div>
         <div class="drivers-sub">${d.callsign} · <span class="monospace-text">${d.discordId}</span></div>
       </div>
-      <button onclick="openDriverEdit('${d.name}')" class="secondary-btn btn-compact">✏️</button>
-      <button onclick="deleteDriverEntry('${d.name}')" class="btn-danger btn-compact">✕</button>
+      <button data-id="${d.discordId}" onclick="openDriverEdit(this.dataset.id)" class="secondary-btn btn-compact">✏️</button>
+      <button data-id="${d.discordId}" onclick="deleteDriverEntry(this.dataset.id)" class="btn-danger btn-compact">✕</button>
     </div>`;
       }).join("")
         : `<div class="muted-note-center">No drivers found.</div>`;
@@ -3753,6 +3762,7 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
     }
 
     function openDriverModal() {
+      hoistDriverModals();
       document.getElementById("dm-edit-id").value = "";
       document.getElementById("dm-name").value = "";
       document.getElementById("dm-number").value = "";
@@ -3766,11 +3776,12 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
       setTimeout(() => document.getElementById("dm-name").focus(), 50);
     }
 
-    function openDriverEdit(name) {
+    function openDriverEdit(discordId) {
+      hoistDriverModals();
       const drivers = getDriverDB();
-      const d = drivers.find(x => x.name === name);
+      const d = drivers.find(x => x.discordId === discordId);
       if (!d) return;
-      document.getElementById("dm-edit-id").value = name;
+      document.getElementById("dm-edit-id").value = d.name;
       document.getElementById("dm-name").value = d.name;
       document.getElementById("dm-number").value = d.number;
       document.getElementById("dm-callsign").value = d.callsign;
@@ -3786,7 +3797,7 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
       document.getElementById("driver-modal").style.display = "none";
     }
 
-    function saveDriverEntry() {
+    async function saveDriverEntry() {
       const editId = document.getElementById("dm-edit-id").value;
       const name = document.getElementById("dm-name").value.trim().toUpperCase();
       const number = document.getElementById("dm-number").value.trim();
@@ -3815,18 +3826,20 @@ console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer 
         drivers.push({ name, number, callsign, discordId: discord, robloxUsername, team });
       }
 
-      saveDriverDB(drivers);
+      const ok = await saveDriverDB(drivers);
       closeDriverModal();
       renderDriverDB();
-      showToast(`✓ Driver ${editId ? "updated" : "added"}: ${name}`, "ok");
+      if (ok) showToast(`✓ Driver ${editId ? "updated" : "added"}: ${name}`, "ok");
     }
 
-    function deleteDriverEntry(name) {
-      if (!confirm(`Remove ${name} from the driver database?`)) return;
-      const drivers = getDriverDB().filter(d => d.name !== name);
-      saveDriverDB(drivers);
+    async function deleteDriverEntry(discordId) {
+      const target = getDriverDB().find(d => d.discordId === discordId);
+      if (!target) return;
+      if (!confirm(`Remove ${target.name} from the driver database?`)) return;
+      const drivers = getDriverDB().filter(d => d.discordId !== discordId);
+      const ok = await saveDriverDB(drivers);
       renderDriverDB();
-      showToast(`✓ Removed ${name}`, "ok");
+      if (ok) showToast(`✓ Removed ${target.name}`, "ok");
     }
 
     // ── Teams (admin) ────────────────────────────────────────────────────
@@ -9070,6 +9083,27 @@ document.addEventListener("keydown", e => {
 
         showToast(vote === "yes" ? "✅ Voted Yes" : "❌ Voted No", vote === "yes" ? "ok" : "err");
       }
+
+    // ── Modal hoist fix ──────────────────────────────────────────────────
+    // driver-modal / team-modal / principal-driver-modal are nested inside
+    // #screen-settings, so they stay invisible whenever another screen
+    // (e.g. the Dev panel) is active. Re-parent them to <body>.
+    // Root cause: #screen-settings has one unclosed <div> (197 opens / 196
+    // closes before the first modal), so every modal after it is nested in it.
+    // Hoist ALL of them to <body> so they show regardless of the active screen.
+    function hoistDriverModals() {
+      document.querySelectorAll("#screen-settings .modal").forEach(m => {
+        if (m.parentElement !== document.body) document.body.appendChild(m);
+      });
+    }
+    hoistDriverModals();
+    document.addEventListener("DOMContentLoaded", hoistDriverModals);
+    window.addEventListener("load", hoistDriverModals);
+    // Safety net: whenever any modal is about to be shown, make sure it isn't trapped in a hidden screen.
+    (function () {
+      document.addEventListener("click", () => setTimeout(hoistDriverModals, 0), true);
+    })();
+
   </script>
 </body>
 
