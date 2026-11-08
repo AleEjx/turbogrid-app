@@ -5797,7 +5797,7 @@ async function loadReleases() {
   const listEl = document.getElementById("version-list");
   listEl.innerHTML = "Loading releases...";
   try {
-    const res = await fetch("https://api.github.com/repos/AleEjx/racecontrol-app/releases");
+    const res = await fetch("https://api.github.com/repos/AleEjx/turbogrid-app/releases");
     if (!res.ok) { listEl.innerHTML = '<div class="text-error-sm">Failed to load releases.</div>'; return; }
     const releases = await res.json();
     const currentVersion = (document.getElementById("app-version")?.textContent || "").replace(/^v/, "");
