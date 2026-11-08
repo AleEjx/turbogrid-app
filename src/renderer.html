@@ -3571,13 +3571,18 @@ const DRIVER_ROLE_ACADEMY = "1515661732507418765";
 const ENGINEER_ROLE_MAIN    = "1540772132571709501";
 const ENGINEER_ROLE_ACADEMY = "1540772142650499165";
 
+// v1.3-engineer-access: Engineers aren't roster drivers, so EITHER
+// league's Engineer role counts, whichever league is active. Before this,
+// only the active league's Engineer role counted, so a Main Engineer
+// (1540772132571709501) saw no Engineer card whenever Academy was active.
+// (The Driver-role check below stays league-scoped — that's the roster split.)
 function canEngineerForActiveLeague() {
   if (hasDev) return true; // devs aren't league-restricted
   const requiredRole = _activeLeague === "academy" ? DRIVER_ROLE_ACADEMY : DRIVER_ROLE_MAIN;
-  const requiredEngineerRole = _activeLeague === "academy" ? ENGINEER_ROLE_ACADEMY : ENGINEER_ROLE_MAIN;
   const roles = user?.roles || [];
-  return roles.includes(MARSHAL_ROLE) || roles.includes(requiredRole) || roles.includes(requiredEngineerRole);
+  return roles.includes(MARSHAL_ROLE) || roles.includes(requiredRole) || roles.includes(ENGINEER_ROLE_MAIN) || roles.includes(ENGINEER_ROLE_ACADEMY);
 }
+console.log("[EngineerAccess] renderer v1.3-engineer-access — either Engineer role accepted");
 
     function driverDbKey() {
       return _activeLeague === "academy" ? "rc_driver_db_academy" : "rc_driver_db";
